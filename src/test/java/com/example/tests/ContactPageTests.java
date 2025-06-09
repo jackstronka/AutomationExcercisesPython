@@ -4,8 +4,8 @@ import com.example.data.ContactFormDataProvider;
 import com.example.pages.ContactPage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.Test;
 import org.testng.Assert;
+import org.testng.annotations.Test;
 
 
 

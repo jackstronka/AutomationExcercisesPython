@@ -1,8 +1,11 @@
 package com.example.steps;
 
-import com.example.pages.ContactPage;
 import com.example.hooks.Hooks;
-import io.cucumber.java.en.*;
+import com.example.pages.ContactPage;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

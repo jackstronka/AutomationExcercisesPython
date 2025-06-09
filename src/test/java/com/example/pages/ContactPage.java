@@ -1,10 +1,10 @@
 package com.example.pages;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ContactPage extends BasePage{
 
@@ -12,6 +12,10 @@ public class ContactPage extends BasePage{
         public ContactPage (WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
     }
+
+
+    // ***** Page variables *****
+    String contactUsPageURL = "https://www.b2c2.com/contact-us";
 
     // ***** WebElements *****
     private final String teamSelectListId = "w-dropdown-toggle-5";
@@ -30,7 +34,7 @@ public class ContactPage extends BasePage{
 
 
     public void openContactUs() {
-        driver.get("https://www.b2c2.com/contact-us");
+        driver.get(contactUsPageURL);
     }
 
     public void acceptCookiesIfPresent() {
@@ -46,7 +50,6 @@ public class ContactPage extends BasePage{
 
         }
     }
-
 
 
     public void selectTeamOnboarding() {
@@ -65,6 +68,7 @@ public class ContactPage extends BasePage{
     public void selectOrganizationExchange() {
         driver.findElement(By.id(yourOrganizationListId)).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(exchangeOptionXpath))).click();
+
     }
 
     public void enterCompanyName(String company) {
@@ -87,9 +91,6 @@ public class ContactPage extends BasePage{
     public void submitForm() {
         driver.findElement(By.xpath(submitButtonXpah)).click();
     }
-
-
-
 
 
 }

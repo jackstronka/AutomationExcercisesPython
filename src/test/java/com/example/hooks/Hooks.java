@@ -1,11 +1,10 @@
 package com.example.hooks;
 
+import com.example.utilities.WebDriverFactory;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import com.example.utilities.WebDriverFactory;
-
 
 import java.time.Duration;
 

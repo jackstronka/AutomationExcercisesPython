@@ -1,8 +1,6 @@
 package com.example.pages;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -16,7 +14,7 @@ public class HomePage extends BasePage {
 
 
     // ***** Page variables *****
-    String pageURL = "https://www.b2c2.com";
+    String PageURL = "https://www.b2c2.com/";
 
 
     // ***** WebElements *****
@@ -26,7 +24,7 @@ public class HomePage extends BasePage {
 
     // ***** Page Methods *****
     public void goToB2C2HomePage () {
-        driver.navigate().to(pageURL);
+        driver.get(PageURL);
     }
 
     public void goToContactPage() { click(By.id(contactButtonId)); }
