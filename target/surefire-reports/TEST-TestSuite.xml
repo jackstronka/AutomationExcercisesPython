@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="TestSuite" time="50.747" tests="5" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1250"/>
+    <property name="java.class.path" value="C:\Users\jacks\NewAutomatedTestsB2C2\target\test-classes;C:\Users\jacks\NewAutomatedTestsB2C2\target\classes;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-java\4.30.0\selenium-java-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-api\4.30.0\selenium-api-4.30.0.jar;C:\Users\jacks\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.30.0\selenium-chrome-driver-4.30.0.jar;C:\Users\jacks\.m2\repository\com\google\auto\service\auto-service-annotations\1.1.1\auto-service-annotations-1.1.1.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.30.0\selenium-chromium-driver-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-json\4.30.0\selenium-json-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-manager\4.30.0\selenium-manager-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v132\4.30.0\selenium-devtools-v132-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v133\4.30.0\selenium-devtools-v133-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v134\4.30.0\selenium-devtools-v134-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.30.0\selenium-edge-driver-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.30.0\selenium-firefox-driver-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-http\4.30.0\selenium-http-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.30.0\selenium-ie-driver-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.30.0\selenium-remote-driver-4.30.0.jar;C:\Users\jacks\.m2\repository\com\google\guava\guava\33.4.5-jre\guava-33.4.5-jre.jar;C:\Users\jacks\.m2\repository\com\google\guava\failureaccess\1.0.3\failureaccess-1.0.3.jar;C:\Users\jacks\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\jacks\.m2\repository\com\google\errorprone\error_prone_annotations\2.36.0\error_prone_annotations-2.36.0.jar;C:\Users\jacks\.m2\repository\com\google\j2objc\j2objc-annotations\3.0.0\j2objc-annotations-3.0.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-api\1.48.0\opentelemetry-api-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-context\1.48.0\opentelemetry-context-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-exporter-logging\1.48.0\opentelemetry-exporter-logging-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-sdk-common\1.48.0\opentelemetry-sdk-common-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure-spi\1.48.0\opentelemetry-sdk-extension-autoconfigure-spi-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure\1.48.0\opentelemetry-sdk-extension-autoconfigure-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-sdk-trace\1.48.0\opentelemetry-sdk-trace-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-sdk\1.48.0\opentelemetry-sdk-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-sdk-metrics\1.48.0\opentelemetry-sdk-metrics-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-sdk-logs\1.48.0\opentelemetry-sdk-logs-1.48.0.jar;C:\Users\jacks\.m2\repository\net\bytebuddy\byte-buddy\1.17.2\byte-buddy-1.17.2.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-os\4.30.0\selenium-os-4.30.0.jar;C:\Users\jacks\.m2\repository\org\apache\commons\commons-exec\1.4.0\commons-exec-1.4.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.30.0\selenium-safari-driver-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-support\4.30.0\selenium-support-4.30.0.jar;C:\Users\jacks\.m2\repository\io\github\bonigarcia\webdrivermanager\5.8.0\webdrivermanager-5.8.0.jar;C:\Users\jacks\.m2\repository\org\slf4j\slf4j-api\2.0.12\slf4j-api-2.0.12.jar;C:\Users\jacks\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\jacks\.m2\repository\com\github\docker-java\docker-java\3.3.6\docker-java-3.3.6.jar;C:\Users\jacks\.m2\repository\com\github\docker-java\docker-java-core\3.3.6\docker-java-core-3.3.6.jar;C:\Users\jacks\.m2\repository\com\github\docker-java\docker-java-api\3.3.6\docker-java-api-3.3.6.jar;C:\Users\jacks\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.10.3\jackson-annotations-2.10.3.jar;C:\Users\jacks\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.10.3\jackson-databind-2.10.3.jar;C:\Users\jacks\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.10.3\jackson-core-2.10.3.jar;C:\Users\jacks\.m2\repository\org\bouncycastle\bcpkix-jdk18on\1.76\bcpkix-jdk18on-1.76.jar;C:\Users\jacks\.m2\repository\org\bouncycastle\bcprov-jdk18on\1.76\bcprov-jdk18on-1.76.jar;C:\Users\jacks\.m2\repository\org\bouncycastle\bcutil-jdk18on\1.76\bcutil-jdk18on-1.76.jar;C:\Users\jacks\.m2\repository\org\slf4j\jcl-over-slf4j\1.7.30\jcl-over-slf4j-1.7.30.jar;C:\Users\jacks\.m2\repository\com\github\docker-java\docker-java-transport-httpclient5\3.3.6\docker-java-transport-httpclient5-3.3.6.jar;C:\Users\jacks\.m2\repository\com\github\docker-java\docker-java-transport\3.3.6\docker-java-transport-3.3.6.jar;C:\Users\jacks\.m2\repository\net\java\dev\jna\jna\5.13.0\jna-5.13.0.jar;C:\Users\jacks\.m2\repository\org\brotli\dec\0.1.2\dec-0.1.2.jar;C:\Users\jacks\.m2\repository\org\apache\commons\commons-lang3\3.14.0\commons-lang3-3.14.0.jar;C:\Users\jacks\.m2\repository\org\apache\commons\commons-compress\1.26.1\commons-compress-1.26.1.jar;C:\Users\jacks\.m2\repository\commons-codec\commons-codec\1.16.1\commons-codec-1.16.1.jar;C:\Users\jacks\.m2\repository\commons-io\commons-io\2.15.1\commons-io-2.15.1.jar;C:\Users\jacks\.m2\repository\org\apache\httpcomponents\client5\httpclient5\5.2.1\httpclient5-5.2.1.jar;C:\Users\jacks\.m2\repository\org\apache\httpcomponents\core5\httpcore5\5.2\httpcore5-5.2.jar;C:\Users\jacks\.m2\repository\org\apache\httpcomponents\core5\httpcore5-h2\5.2\httpcore5-h2-5.2.jar;C:\Users\jacks\.m2\repository\org\testng\testng\7.10.2\testng-7.10.2.jar;C:\Users\jacks\.m2\repository\com\beust\jcommander\1.82\jcommander-1.82.jar;C:\Users\jacks\.m2\repository\org\webjars\jquery\3.7.1\jquery-3.7.1.jar;C:\Users\jacks\.m2\repository\io\cucumber\cucumber-java\7.14.0\cucumber-java-7.14.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\cucumber-core\7.14.0\cucumber-core-7.14.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\cucumber-gherkin\7.14.0\cucumber-gherkin-7.14.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\cucumber-gherkin-messages\7.14.0\cucumber-gherkin-messages-7.14.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\tag-expressions\5.0.6\tag-expressions-5.0.6.jar;C:\Users\jacks\.m2\repository\io\cucumber\cucumber-expressions\16.1.2\cucumber-expressions-16.1.2.jar;C:\Users\jacks\.m2\repository\io\cucumber\datatable\7.14.0\datatable-7.14.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\cucumber-plugin\7.14.0\cucumber-plugin-7.14.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\docstring\7.14.0\docstring-7.14.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\html-formatter\20.4.0\html-formatter-20.4.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\junit-xml-formatter\0.2.0\junit-xml-formatter-0.2.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\ci-environment\9.2.0\ci-environment-9.2.0.jar;C:\Users\jacks\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\jacks\.m2\repository\io\cucumber\cucumber-testng\7.14.0\cucumber-testng-7.14.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\gherkin\26.0.0\gherkin-26.0.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\messages\21.0.1\messages-21.0.1.jar;C:\Users\jacks\.m2\repository\org\slf4j\slf4j-simple\2.0.13\slf4j-simple-2.0.13.jar;C:\Users\jacks\.m2\repository\log4j\log4j\1.2.17\log4j-1.2.17.jar;"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Europe/Warsaw"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="PL"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-21.0.7.6-hotspot\bin"/>
+    <property name="sun.java.command" value="C:\Users\jacks\AppData\Local\Temp\surefire3652120069710044408\surefirebooter-20250609112804631_3.jar C:\Users\jacks\AppData\Local\Temp\surefire3652120069710044408 2025-06-09T11-28-04_479-jvmRun1 surefire-20250609112804631_1tmp surefire_0-20250609112804631_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\jacks\NewAutomatedTestsB2C2\target\test-classes;C:\Users\jacks\NewAutomatedTestsB2C2\target\classes;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-java\4.30.0\selenium-java-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-api\4.30.0\selenium-api-4.30.0.jar;C:\Users\jacks\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.30.0\selenium-chrome-driver-4.30.0.jar;C:\Users\jacks\.m2\repository\com\google\auto\service\auto-service-annotations\1.1.1\auto-service-annotations-1.1.1.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.30.0\selenium-chromium-driver-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-json\4.30.0\selenium-json-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-manager\4.30.0\selenium-manager-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v132\4.30.0\selenium-devtools-v132-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v133\4.30.0\selenium-devtools-v133-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v134\4.30.0\selenium-devtools-v134-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.30.0\selenium-edge-driver-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.30.0\selenium-firefox-driver-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-http\4.30.0\selenium-http-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.30.0\selenium-ie-driver-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.30.0\selenium-remote-driver-4.30.0.jar;C:\Users\jacks\.m2\repository\com\google\guava\guava\33.4.5-jre\guava-33.4.5-jre.jar;C:\Users\jacks\.m2\repository\com\google\guava\failureaccess\1.0.3\failureaccess-1.0.3.jar;C:\Users\jacks\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\jacks\.m2\repository\com\google\errorprone\error_prone_annotations\2.36.0\error_prone_annotations-2.36.0.jar;C:\Users\jacks\.m2\repository\com\google\j2objc\j2objc-annotations\3.0.0\j2objc-annotations-3.0.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-api\1.48.0\opentelemetry-api-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-context\1.48.0\opentelemetry-context-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-exporter-logging\1.48.0\opentelemetry-exporter-logging-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-sdk-common\1.48.0\opentelemetry-sdk-common-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure-spi\1.48.0\opentelemetry-sdk-extension-autoconfigure-spi-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure\1.48.0\opentelemetry-sdk-extension-autoconfigure-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-sdk-trace\1.48.0\opentelemetry-sdk-trace-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-sdk\1.48.0\opentelemetry-sdk-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-sdk-metrics\1.48.0\opentelemetry-sdk-metrics-1.48.0.jar;C:\Users\jacks\.m2\repository\io\opentelemetry\opentelemetry-sdk-logs\1.48.0\opentelemetry-sdk-logs-1.48.0.jar;C:\Users\jacks\.m2\repository\net\bytebuddy\byte-buddy\1.17.2\byte-buddy-1.17.2.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-os\4.30.0\selenium-os-4.30.0.jar;C:\Users\jacks\.m2\repository\org\apache\commons\commons-exec\1.4.0\commons-exec-1.4.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.30.0\selenium-safari-driver-4.30.0.jar;C:\Users\jacks\.m2\repository\org\seleniumhq\selenium\selenium-support\4.30.0\selenium-support-4.30.0.jar;C:\Users\jacks\.m2\repository\io\github\bonigarcia\webdrivermanager\5.8.0\webdrivermanager-5.8.0.jar;C:\Users\jacks\.m2\repository\org\slf4j\slf4j-api\2.0.12\slf4j-api-2.0.12.jar;C:\Users\jacks\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\jacks\.m2\repository\com\github\docker-java\docker-java\3.3.6\docker-java-3.3.6.jar;C:\Users\jacks\.m2\repository\com\github\docker-java\docker-java-core\3.3.6\docker-java-core-3.3.6.jar;C:\Users\jacks\.m2\repository\com\github\docker-java\docker-java-api\3.3.6\docker-java-api-3.3.6.jar;C:\Users\jacks\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.10.3\jackson-annotations-2.10.3.jar;C:\Users\jacks\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.10.3\jackson-databind-2.10.3.jar;C:\Users\jacks\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.10.3\jackson-core-2.10.3.jar;C:\Users\jacks\.m2\repository\org\bouncycastle\bcpkix-jdk18on\1.76\bcpkix-jdk18on-1.76.jar;C:\Users\jacks\.m2\repository\org\bouncycastle\bcprov-jdk18on\1.76\bcprov-jdk18on-1.76.jar;C:\Users\jacks\.m2\repository\org\bouncycastle\bcutil-jdk18on\1.76\bcutil-jdk18on-1.76.jar;C:\Users\jacks\.m2\repository\org\slf4j\jcl-over-slf4j\1.7.30\jcl-over-slf4j-1.7.30.jar;C:\Users\jacks\.m2\repository\com\github\docker-java\docker-java-transport-httpclient5\3.3.6\docker-java-transport-httpclient5-3.3.6.jar;C:\Users\jacks\.m2\repository\com\github\docker-java\docker-java-transport\3.3.6\docker-java-transport-3.3.6.jar;C:\Users\jacks\.m2\repository\net\java\dev\jna\jna\5.13.0\jna-5.13.0.jar;C:\Users\jacks\.m2\repository\org\brotli\dec\0.1.2\dec-0.1.2.jar;C:\Users\jacks\.m2\repository\org\apache\commons\commons-lang3\3.14.0\commons-lang3-3.14.0.jar;C:\Users\jacks\.m2\repository\org\apache\commons\commons-compress\1.26.1\commons-compress-1.26.1.jar;C:\Users\jacks\.m2\repository\commons-codec\commons-codec\1.16.1\commons-codec-1.16.1.jar;C:\Users\jacks\.m2\repository\commons-io\commons-io\2.15.1\commons-io-2.15.1.jar;C:\Users\jacks\.m2\repository\org\apache\httpcomponents\client5\httpclient5\5.2.1\httpclient5-5.2.1.jar;C:\Users\jacks\.m2\repository\org\apache\httpcomponents\core5\httpcore5\5.2\httpcore5-5.2.jar;C:\Users\jacks\.m2\repository\org\apache\httpcomponents\core5\httpcore5-h2\5.2\httpcore5-h2-5.2.jar;C:\Users\jacks\.m2\repository\org\testng\testng\7.10.2\testng-7.10.2.jar;C:\Users\jacks\.m2\repository\com\beust\jcommander\1.82\jcommander-1.82.jar;C:\Users\jacks\.m2\repository\org\webjars\jquery\3.7.1\jquery-3.7.1.jar;C:\Users\jacks\.m2\repository\io\cucumber\cucumber-java\7.14.0\cucumber-java-7.14.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\cucumber-core\7.14.0\cucumber-core-7.14.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\cucumber-gherkin\7.14.0\cucumber-gherkin-7.14.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\cucumber-gherkin-messages\7.14.0\cucumber-gherkin-messages-7.14.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\tag-expressions\5.0.6\tag-expressions-5.0.6.jar;C:\Users\jacks\.m2\repository\io\cucumber\cucumber-expressions\16.1.2\cucumber-expressions-16.1.2.jar;C:\Users\jacks\.m2\repository\io\cucumber\datatable\7.14.0\datatable-7.14.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\cucumber-plugin\7.14.0\cucumber-plugin-7.14.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\docstring\7.14.0\docstring-7.14.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\html-formatter\20.4.0\html-formatter-20.4.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\junit-xml-formatter\0.2.0\junit-xml-formatter-0.2.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\ci-environment\9.2.0\ci-environment-9.2.0.jar;C:\Users\jacks\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\jacks\.m2\repository\io\cucumber\cucumber-testng\7.14.0\cucumber-testng-7.14.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\gherkin\26.0.0\gherkin-26.0.0.jar;C:\Users\jacks\.m2\repository\io\cucumber\messages\21.0.1\messages-21.0.1.jar;C:\Users\jacks\.m2\repository\org\slf4j\slf4j-simple\2.0.13\slf4j-simple-2.0.13.jar;C:\Users\jacks\.m2\repository\log4j\log4j\1.2.17\log4j-1.2.17.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\jacks"/>
+    <property name="user.language" value="pl"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-04-15"/>
+    <property name="java.home" value="C:\Program Files\Eclipse Adoptium\jdk-21.0.7.6-hotspot"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\jacks\NewAutomatedTestsB2C2"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\jacks\AppData\Local\Temp\surefire3652120069710044408\surefirebooter-20250609112804631_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="21.0.7+6-LTS"/>
+    <property name="user.name" value="jacks"/>
+    <property name="stdout.encoding" value="Cp1250"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="browser" value="firefox"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-21.0.7+6"/>
+    <property name="localRepository" value="C:\Users\jacks\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="C:\Users\jacks\AppData\Local\Temp\"/>
+    <property name="java.version" value="21.0.7"/>
+    <property name="user.dir" value="C:\Users\jacks\NewAutomatedTestsB2C2"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="webdriver.gecko.driver" value="C:\Users\jacks\.cache\selenium\geckodriver\win64\0.36.0\geckodriver.exe"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="headless" value="false"/>
+    <property name="native.encoding" value="Cp1250"/>
+    <property name="java.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-21.0.7.6-hotspot\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Eclipse Adoptium\jdk-21.0.7.6-hotspot\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Eclipse Adoptium\jdk-21.0.7.6-hotspot\;C:\Program Files\dotnet\;C:\Program Files\Apache\Maven\apache-maven-3.9.9\bin;C:\Program Files\Git\cmd;C:\Users\jacks\AppData\Local\Microsoft\WindowsApps;C:\Users\jacks\AppData\Local\atom\bin;C:\Users\jacks\AppData\Local\Microsoft\WindowsApps;;C:\Program Files\JetBrains\IntelliJ IDEA 2025.1.1.1\bin;;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2022.2.5\bin;;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="Cp1250"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="21.0.7+6-LTS"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="isB2C2Displayed" classname="com.example.tests.HomePageTests" time="2.655">
+    <system-err><![CDATA[[TestNG-tests-1] INFO com.example.tests.BaseTests - 🔧 Test setup starting for browser: firefox, headless: false
+[TestNG-tests-1] INFO io.github.bonigarcia.wdm.WebDriverManager - Using geckodriver 0.36.0 (resolved driver for Firefox 139)
+[TestNG-tests-1] INFO io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.gecko.driver as C:\Users\jacks\.cache\selenium\geckodriver\win64\0.36.0\geckodriver.exe
+[TestNG-tests-1] INFO com.example.tests.BaseTests - ✅ WebDriver setup completed.
+[TestNG-tests-1] INFO com.example.tests.HomePageTests - 🌐 Opening B2C2.com website.
+[TestNG-tests-1] INFO com.example.tests.HomePageTests - Accept Cookie button
+[TestNG-tests-1] INFO com.example.tests.HomePageTests - 🌐 Checking if Home Page Displayed
+]]></system-err>
+  </testcase>
+  <testcase name="testContactForm[John Smith, john@b2c2.com, B2C2 Ltd., Trader, Looking forward to onboarding.](1)" classname="com.example.tests.ContactPageTests" time="5.768">
+    <system-err><![CDATA[[TestNG-tests-1] INFO com.example.tests.BaseTests - 🛑 Executing teardown phase.
+[TestNG-tests-1] INFO com.example.tests.BaseTests - ✅ WebDriver closed.
+[TestNG-tests-1] INFO com.example.tests.BaseTests - 🔧 Test setup starting for browser: firefox, headless: false
+[TestNG-tests-1] INFO io.github.bonigarcia.wdm.WebDriverManager - Using geckodriver 0.36.0 (resolved driver for Firefox 139)
+[TestNG-tests-1] INFO io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.gecko.driver as C:\Users\jacks\.cache\selenium\geckodriver\win64\0.36.0\geckodriver.exe
+[TestNG-tests-1] INFO com.example.tests.BaseTests - ✅ WebDriver setup completed.
+[TestNG-tests-1] INFO com.example.tests.ContactPageTests - 🌐 Opening Contact Us page.
+[TestNG-tests-1] INFO com.example.tests.ContactPageTests - 🔘 Accepting cookie banner if present.
+[TestNG-tests-1] INFO com.example.tests.ContactPageTests - 📥 Filling out contact form.
+[TestNG-tests-1] INFO com.example.tests.ContactPageTests - 🚀 Submitting the form.
+]]></system-err>
+  </testcase>
+  <testcase name="testContactForm[Alice Novak, alice@cryptox.com, CryptoX, Analyst, Please contact me with API details.](2)" classname="com.example.tests.ContactPageTests" time="5.986">
+    <system-err><![CDATA[[TestNG-tests-1] INFO com.example.tests.BaseTests - 🛑 Executing teardown phase.
+[TestNG-tests-1] INFO com.example.tests.BaseTests - ✅ WebDriver closed.
+[TestNG-tests-1] INFO com.example.tests.BaseTests - 🔧 Test setup starting for browser: firefox, headless: false
+[TestNG-tests-1] INFO io.github.bonigarcia.wdm.WebDriverManager - Using geckodriver 0.36.0 (resolved driver for Firefox 139)
+[TestNG-tests-1] INFO io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.gecko.driver as C:\Users\jacks\.cache\selenium\geckodriver\win64\0.36.0\geckodriver.exe
+[TestNG-tests-1] INFO com.example.tests.BaseTests - ✅ WebDriver setup completed.
+[TestNG-tests-1] INFO com.example.tests.ContactPageTests - 🌐 Opening Contact Us page.
+[TestNG-tests-1] INFO com.example.tests.ContactPageTests - 🔘 Accepting cookie banner if present.
+[TestNG-tests-1] INFO com.example.tests.ContactPageTests - 📥 Filling out contact form.
+[TestNG-tests-1] INFO com.example.tests.ContactPageTests - 🚀 Submitting the form.
+]]></system-err>
+  </testcase>
+  <testcase name="runScenario[&quot;Submit contact form with valid data&quot;, &quot;Contact US form submission&quot;](1)" classname="com.example.runner.CucumberTestRunner" time="10.622">
+    <system-out><![CDATA[
+Scenario Outline: Submit contact form with valid data              # src/test/resources/features/contact_form.feature:19
+  Given the user opens the Contact Us page                         # com.example.steps.ContactFormSteps.openContactPage()
+  And the user accept cookies if present                           # com.example.steps.ContactFormSteps.acceptCookiesIfPresent()
+  When the user selects "Onboarding" from the team dropdown        # com.example.steps.ContactFormSteps.selectTeam(java.lang.String)
+  And the user enters name "John Smith"                            # com.example.steps.ContactFormSteps.enterName(java.lang.String)
+  And the user enters email "john@example.com"                     # com.example.steps.ContactFormSteps.enterEmail(java.lang.String)
+  And the user selects "Exchange" from the organization dropdown   # com.example.steps.ContactFormSteps.selectOrganization(java.lang.String)
+  And the user enters company name "Acme Corp"                     # com.example.steps.ContactFormSteps.enterCompany(java.lang.String)
+  And the user enters position "Manager"                           # com.example.steps.ContactFormSteps.enterPosition(java.lang.String)
+  And the user selects "$1m-$10m" from the trading volume dropdown # com.example.steps.ContactFormSteps.selectVolume(java.lang.String)
+  And the user enters message "Let's talk business"                # com.example.steps.ContactFormSteps.enterMessage(java.lang.String)
+  And the user submits the form                                    # com.example.steps.ContactFormSteps.submitForm()
+  Then the form should be submitted or blocked by captcha          # com.example.steps.ContactFormSteps.verifySubmissionOrCaptcha()
+]]></system-out>
+    <system-err><![CDATA[[TestNG-tests-1] INFO com.example.tests.BaseTests - 🛑 Executing teardown phase.
+[TestNG-tests-1] INFO com.example.tests.BaseTests - ✅ WebDriver closed.
+[TestNG-tests-1] INFO io.github.bonigarcia.wdm.WebDriverManager - Using geckodriver 0.36.0 (resolved driver for Firefox 139)
+[TestNG-tests-1] INFO io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.gecko.driver as C:\Users\jacks\.cache\selenium\geckodriver\win64\0.36.0\geckodriver.exe
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 🌐 Opening Contact Us page
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 🔘 Accepting cookies if present
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 📂 Selecting team: Onboarding
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - ✏️ Entering name: John Smith
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - ✉️ Entering email: john@example.com
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 🏢 Selecting organization type: Exchange
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 🏭 Entering company: Acme Corp
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 📌 Entering position: Manager
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 💰 Selecting trading volume: $1m-$10m
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 📝 Entering message: Let's talk business
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 🚀 Submitting the form
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 🔎 Final step reached. Submission likely complete or blocked by CAPTCHA.
+]]></system-err>
+  </testcase>
+  <testcase name="runScenario[&quot;Submit contact form with valid data&quot;, &quot;Contact US form submission&quot;](2)" classname="com.example.runner.CucumberTestRunner" time="10.899">
+    <system-out><![CDATA[
+Scenario Outline: Submit contact form with valid data              # src/test/resources/features/contact_form.feature:20
+  Given the user opens the Contact Us page                         # com.example.steps.ContactFormSteps.openContactPage()
+  And the user accept cookies if present                           # com.example.steps.ContactFormSteps.acceptCookiesIfPresent()
+  When the user selects "Onboarding" from the team dropdown        # com.example.steps.ContactFormSteps.selectTeam(java.lang.String)
+  And the user enters name "Alice Novak"                           # com.example.steps.ContactFormSteps.enterName(java.lang.String)
+  And the user enters email "alice@example.org"                    # com.example.steps.ContactFormSteps.enterEmail(java.lang.String)
+  And the user selects "Exchange" from the organization dropdown   # com.example.steps.ContactFormSteps.selectOrganization(java.lang.String)
+  And the user enters company name "Beta Ltd"                      # com.example.steps.ContactFormSteps.enterCompany(java.lang.String)
+  And the user enters position "Developer"                         # com.example.steps.ContactFormSteps.enterPosition(java.lang.String)
+  And the user selects "$1m-$10m" from the trading volume dropdown # com.example.steps.ContactFormSteps.selectVolume(java.lang.String)
+  And the user enters message "Interested in B2C2"                 # com.example.steps.ContactFormSteps.enterMessage(java.lang.String)
+  And the user submits the form                                    # com.example.steps.ContactFormSteps.submitForm()
+  Then the form should be submitted or blocked by captcha          # com.example.steps.ContactFormSteps.verifySubmissionOrCaptcha()
+]]></system-out>
+    <system-err><![CDATA[[TestNG-tests-1] INFO io.github.bonigarcia.wdm.WebDriverManager - Using geckodriver 0.36.0 (resolved driver for Firefox 139)
+[TestNG-tests-1] INFO io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.gecko.driver as C:\Users\jacks\.cache\selenium\geckodriver\win64\0.36.0\geckodriver.exe
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 🌐 Opening Contact Us page
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 🔘 Accepting cookies if present
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 📂 Selecting team: Onboarding
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - ✏️ Entering name: Alice Novak
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - ✉️ Entering email: alice@example.org
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 🏢 Selecting organization type: Exchange
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 🏭 Entering company: Beta Ltd
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 📌 Entering position: Developer
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 💰 Selecting trading volume: $1m-$10m
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 📝 Entering message: Interested in B2C2
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 🚀 Submitting the form
+[TestNG-tests-1] INFO com.example.steps.ContactFormSteps - 🔎 Final step reached. Submission likely complete or blocked by CAPTCHA.
+]]></system-err>
+  </testcase>
+</testsuite>

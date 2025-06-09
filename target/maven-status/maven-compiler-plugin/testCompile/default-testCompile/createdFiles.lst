@@ -1,0 +1,5 @@
+com\example\pages\BasePage.class
+com\example\tests\BaseTests.class
+com\example\tests\HomePageTests.class
+com\example\utilities\Log.class
+com\example\pages\HomePage.class

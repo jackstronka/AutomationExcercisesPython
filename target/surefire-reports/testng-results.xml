@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="5" passed="5" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-06-09T11:28:05 CEST" name="TestSuite" finished-at="2025-06-09T11:28:55 CEST" duration-ms="50230">
+    <groups>
+      <group name="cucumber">
+        <method signature="AbstractTestNGCucumberTests.runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:com.example.runner.CucumberTestRunner@7c6908d7]" name="runScenario" class="io.cucumber.testng.AbstractTestNGCucumberTests"/>
+      </group> <!-- cucumber -->
+    </groups>
+    <test started-at="2025-06-09T11:28:05 CEST" name="HomePageTestChrome" finished-at="2025-06-09T11:28:13 CEST" duration-ms="7802">
+      <class name="com.example.tests.HomePageTests">
+        <test-method is-config="true" signature="setup(java.lang.String,java.lang.String)[pri:0, instance:com.example.tests.HomePageTests@6c64cb25]" started-at="2025-06-09T11:28:05 CEST" name="setup" description="Method Level Setup!" finished-at="2025-06-09T11:28:09 CEST" duration-ms="4045" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="isB2C2Displayed()[pri:0, instance:com.example.tests.HomePageTests@6c64cb25]" started-at="2025-06-09T11:28:09 CEST" name="isB2C2Displayed" finished-at="2025-06-09T11:28:12 CEST" duration-ms="2652" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- isB2C2Displayed -->
+        <test-method is-config="true" signature="teardown()[pri:0, instance:com.example.tests.HomePageTests@6c64cb25]" started-at="2025-06-09T11:28:12 CEST" name="teardown" description="Method Level Teardown!" finished-at="2025-06-09T11:28:13 CEST" duration-ms="1066" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+      </class> <!-- com.example.tests.HomePageTests -->
+    </test> <!-- HomePageTestChrome -->
+    <test started-at="2025-06-09T11:28:13 CEST" name="ContactPageTestChrome" finished-at="2025-06-09T11:28:33 CEST" duration-ms="20302">
+      <class name="com.example.tests.ContactPageTests">
+        <test-method is-config="true" signature="setup(java.lang.String,java.lang.String)[pri:0, instance:com.example.tests.ContactPageTests@6b2ea799]" started-at="2025-06-09T11:28:13 CEST" name="setup" description="Method Level Setup!" finished-at="2025-06-09T11:28:16 CEST" duration-ms="3267" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="testContactForm(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.example.tests.ContactPageTests@6b2ea799]" started-at="2025-06-09T11:28:16 CEST" name="testContactForm" data-provider="contactFormData" finished-at="2025-06-09T11:28:22 CEST" duration-ms="5770" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[John Smith]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[john@b2c2.com]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[B2C2 Ltd.]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[Trader]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[Looking forward to onboarding.]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testContactForm -->
+        <test-method is-config="true" signature="teardown()[pri:0, instance:com.example.tests.ContactPageTests@6b2ea799]" started-at="2025-06-09T11:28:22 CEST" name="teardown" description="Method Level Teardown!" finished-at="2025-06-09T11:28:23 CEST" duration-ms="959" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+        <test-method is-config="true" signature="setup(java.lang.String,java.lang.String)[pri:0, instance:com.example.tests.ContactPageTests@6b2ea799]" started-at="2025-06-09T11:28:23 CEST" name="setup" description="Method Level Setup!" finished-at="2025-06-09T11:28:26 CEST" duration-ms="3214" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="testContactForm(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.example.tests.ContactPageTests@6b2ea799]" started-at="2025-06-09T11:28:26 CEST" name="testContactForm" data-provider="contactFormData" finished-at="2025-06-09T11:28:32 CEST" duration-ms="5986" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Alice Novak]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[alice@cryptox.com]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[CryptoX]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[Analyst]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[Please contact me with API details.]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testContactForm -->
+        <test-method is-config="true" signature="teardown()[pri:0, instance:com.example.tests.ContactPageTests@6b2ea799]" started-at="2025-06-09T11:28:32 CEST" name="teardown" description="Method Level Teardown!" finished-at="2025-06-09T11:28:33 CEST" duration-ms="1100" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+      </class> <!-- com.example.tests.ContactPageTests -->
+    </test> <!-- ContactPageTestChrome -->
+    <test started-at="2025-06-09T11:28:33 CEST" name="CucumberTests" finished-at="2025-06-09T11:28:55 CEST" duration-ms="22103">
+      <class name="com.example.runner.CucumberTestRunner">
+        <test-method is-config="true" signature="setUpClass(org.testng.ITestContext)[pri:0, instance:com.example.runner.CucumberTestRunner@7c6908d7]" started-at="2025-06-09T11:28:33 CEST" name="setUpClass" finished-at="2025-06-09T11:28:34 CEST" duration-ms="511" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[org.testng.TestRunner@2f465398]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpClass -->
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:com.example.runner.CucumberTestRunner@7c6908d7]" started-at="2025-06-09T11:28:34 CEST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2025-06-09T11:28:44 CEST" duration-ms="10623" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["Submit contact form with valid data"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Contact US form submission"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:com.example.runner.CucumberTestRunner@7c6908d7]" started-at="2025-06-09T11:28:44 CEST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2025-06-09T11:28:55 CEST" duration-ms="10902" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["Submit contact form with valid data"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Contact US form submission"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.example.runner.CucumberTestRunner@7c6908d7]" started-at="2025-06-09T11:28:55 CEST" name="tearDownClass" finished-at="2025-06-09T11:28:55 CEST" duration-ms="58" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownClass -->
+      </class> <!-- com.example.runner.CucumberTestRunner -->
+    </test> <!-- CucumberTests -->
+  </suite> <!-- TestSuite -->
+</testng-results>
