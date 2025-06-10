@@ -91,6 +91,12 @@ public class ContactFormSteps {
     @Then("the form should be submitted or blocked by captcha")
     public void verifySubmissionOrCaptcha() {
         logger.info("🔎 Final step reached. Submission likely complete or blocked by CAPTCHA.");
-        // Tu można dodać późniejszą walidację na podstawie alertów lub DOM
+        try {
+            Hooks.getDriver().switchTo().alert().dismiss(); // lub .accept()
+            logger.warn("⚠️ CAPTCHA detected. Alert dismissed.");
+        } catch (Exception ignored) {
+            logger.info("✅ No CAPTCHA alert detected — proceeding as normal.");
+        }
     }
+
 }

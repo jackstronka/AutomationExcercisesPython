@@ -21,7 +21,7 @@
 
 
     <test name="CucumberTests">
-        <parameter name="browser" value="firefox" />
+        <parameter name="browser" value="chrome" />
         <!--  <parameter name="headless" value="true" />-->
         <!--     mvn test -Ptestng -Dbrowser=chrome -Dheadless=true   -->
         <!--     mvn test -Pcucumber -Dbrowser=chrome -Dheadless=true   -->

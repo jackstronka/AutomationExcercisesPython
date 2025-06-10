@@ -16,5 +16,5 @@ Feature: Contact US form submission
 
     Examples:
       | name        | email                | company     | position   | message             |
-      | John Smith  | john@example.com     | Acme Corp   | Manager    | Let's talk business |
-      | Alice Novak | alice@example.org    | Beta Ltd    | Developer  | Interested in B2C2  |
+      | John Cucumber  | john@example.com     | Acme Corp   | Manager    | Let's talk business |
+      | Alice Cucumber | alice@example.org    | Beta Ltd    | Developer  | Interested in B2C2  |
