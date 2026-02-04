@@ -1,5 +1,9 @@
 com\example\pages\BasePage.class
-com\example\tests\BaseTests.class
-com\example\tests\HomePageTests.class
-com\example\utilities\Log.class
+com\example\data\ContactFormDataProvider.class
+com\example\hooks\Hooks.class
+com\example\runner\CucumberTestRunner.class
+com\example\utilities\ConfigReader.class
+com\example\steps\SmokeSteps.class
+com\example\tests\SmokeTestNG.class
 com\example\pages\HomePage.class
+com\example\utilities\WebDriverFactory.class

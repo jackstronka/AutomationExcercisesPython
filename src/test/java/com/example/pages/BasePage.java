@@ -1,55 +1,68 @@
 package com.example.pages;
 
+import com.example.utilities.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 import java.util.List;
 
+public abstract class BasePage {
 
-public class BasePage {
-    public WebDriver driver;
-    public WebDriverWait wait;
+    protected WebDriver driver;
+    protected WebDriverWait wait;
 
-    //Constructor
-    public BasePage (WebDriver driver, WebDriverWait wait) {
+    protected BasePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = wait;
+        this.wait = new WebDriverWait(
+                driver,
+                Duration.ofSeconds(
+                        Long.parseLong(ConfigReader.get("explicitWait"))
+                )
+        );
     }
 
-    // ***** Methods *****
-    public void sendKeys (By elementLocation, Keys keys, String string) {
-        driver.findElement(elementLocation).sendKeys(keys, string);
-    }
-    public void click (By elementLocation) {
-        driver.findElement(elementLocation).click();
+
+
+    // ===== Common actions =====
+
+    protected void click(By locator) {
+        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 
-    public void writeText (By elementLocation, String text) {
-        driver.findElement(elementLocation).sendKeys(text);
+    protected void writeText(By locator, String text) {
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        element.clear();
+        element.sendKeys(text);
     }
 
-    public String readText (By elementLocation) {
-        return driver.findElement(elementLocation).getText();
+    protected void sendKeys(By locator, Keys keys) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).sendKeys(keys);
     }
 
-    public void clearText (By elementLocation) {
-        driver.findElement(elementLocation).clear();
+    protected String readText(By locator) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).getText();
     }
 
-    public boolean checkWebElementPresence(By locator) {
-        boolean result = false;
-        List<WebElement> elementList = driver.findElements(locator);
-        if(elementList.size() > 0) {
-            result = true;
-        }
-        return result;
+    protected boolean isElementPresent(By locator) {
+        return !driver.findElements(locator).isEmpty();
     }
 
-    public WebElement getWebElement(By locator) {
-        WebElement element = driver.findElement(locator);
-        return element;
+    protected WebElement getElement(By locator) {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
+    // ===== Generic page info =====
+
+    public String getTitle() {
+        return driver.getTitle();
+    }
+
+    public String getCurrentUrl() {
+        return driver.getCurrentUrl();
+    }
 }

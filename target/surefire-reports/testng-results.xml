@@ -1,197 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="5" passed="5" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="0" failed="0" skipped="1">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-06-09T11:28:05 CEST" name="TestSuite" finished-at="2025-06-09T11:28:55 CEST" duration-ms="50230">
+  <suite started-at="2026-02-04T11:12:32 CET" name="TestNG Smoke Suite" finished-at="2026-02-04T11:12:36 CET" duration-ms="4717">
     <groups>
-      <group name="cucumber">
-        <method signature="AbstractTestNGCucumberTests.runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:com.example.runner.CucumberTestRunner@7c6908d7]" name="runScenario" class="io.cucumber.testng.AbstractTestNGCucumberTests"/>
-      </group> <!-- cucumber -->
     </groups>
-    <test started-at="2025-06-09T11:28:05 CEST" name="HomePageTestChrome" finished-at="2025-06-09T11:28:13 CEST" duration-ms="7802">
-      <class name="com.example.tests.HomePageTests">
-        <test-method is-config="true" signature="setup(java.lang.String,java.lang.String)[pri:0, instance:com.example.tests.HomePageTests@6c64cb25]" started-at="2025-06-09T11:28:05 CEST" name="setup" description="Method Level Setup!" finished-at="2025-06-09T11:28:09 CEST" duration-ms="4045" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[firefox]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[false]]>
-              </value>
-            </param>
-          </params>
+    <test started-at="2026-02-04T11:12:32 CET" name="SmokeTest" finished-at="2026-02-04T11:12:36 CET" duration-ms="4717">
+      <class name="com.example.tests.SmokeTestNG">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.example.tests.SmokeTestNG@12468a38]" started-at="2026-02-04T11:12:32 CET" name="setUp" finished-at="2026-02-04T11:12:36 CET" duration-ms="4632" status="FAIL">
+          <exception class="org.openqa.selenium.InvalidArgumentException">
+            <message>
+              <![CDATA[Expected "url" to be a valid URL, got www.onet.pl
+Build info: version: '4.30.0', revision: '509c7f17cc*'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.7'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [73525076-8dd3-40fe-bc0b-f85d40c970ac, get {url=www.onet.pl}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 147.0.2, moz:accessibilityChecks: false, moz:buildID: 20260126151322, moz:geckodriverVersion: 0.36.0, moz:headless: false, moz:platformVersion: 10.0, moz:processID: 19072, moz:profile: C:\Users\jacks\AppData\Loca..., moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, userAgent: Mozilla/5.0 (Windows NT 10....}
+Session ID: 73525076-8dd3-40fe-bc0b-f85d40c970ac]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.InvalidArgumentException: Expected "url" to be a valid URL, got www.onet.pl
+Build info: version: '4.30.0', revision: '509c7f17cc*'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.7'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [73525076-8dd3-40fe-bc0b-f85d40c970ac, get {url=www.onet.pl}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 147.0.2, moz:accessibilityChecks: false, moz:buildID: 20260126151322, moz:geckodriverVersion: 0.36.0, moz:headless: false, moz:platformVersion: 10.0, moz:processID: 19072, moz:profile: C:\Users\jacks\AppData\Loca..., moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, userAgent: Mozilla/5.0 (Windows NT 10....}
+Session ID: 73525076-8dd3-40fe-bc0b-f85d40c970ac
+at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:313)
+at com.example.tests.SmokeTestNG.setUp(SmokeTestNG.java:26)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:71)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:400)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:333)
+at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:833)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:600)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+at org.testng.TestRunner.privateRun(TestRunner.java:739)
+at org.testng.TestRunner.run(TestRunner.java:614)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.InvalidArgumentException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- setup -->
-        <test-method signature="isB2C2Displayed()[pri:0, instance:com.example.tests.HomePageTests@6c64cb25]" started-at="2025-06-09T11:28:09 CEST" name="isB2C2Displayed" finished-at="2025-06-09T11:28:12 CEST" duration-ms="2652" status="PASS">
+        </test-method> <!-- setUp -->
+        <test-method signature="shouldOpenHomePage()[pri:0, instance:com.example.tests.SmokeTestNG@12468a38]" started-at="2026-02-04T11:12:36 CET" name="shouldOpenHomePage" finished-at="2026-02-04T11:12:36 CET" duration-ms="0" status="SKIP">
+          <exception class="org.openqa.selenium.InvalidArgumentException">
+            <message>
+              <![CDATA[Expected "url" to be a valid URL, got www.onet.pl
+Build info: version: '4.30.0', revision: '509c7f17cc*'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.7'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [73525076-8dd3-40fe-bc0b-f85d40c970ac, get {url=www.onet.pl}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 147.0.2, moz:accessibilityChecks: false, moz:buildID: 20260126151322, moz:geckodriverVersion: 0.36.0, moz:headless: false, moz:platformVersion: 10.0, moz:processID: 19072, moz:profile: C:\Users\jacks\AppData\Loca..., moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, userAgent: Mozilla/5.0 (Windows NT 10....}
+Session ID: 73525076-8dd3-40fe-bc0b-f85d40c970ac]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.InvalidArgumentException: Expected "url" to be a valid URL, got www.onet.pl
+Build info: version: '4.30.0', revision: '509c7f17cc*'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.7'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [73525076-8dd3-40fe-bc0b-f85d40c970ac, get {url=www.onet.pl}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 147.0.2, moz:accessibilityChecks: false, moz:buildID: 20260126151322, moz:geckodriverVersion: 0.36.0, moz:headless: false, moz:platformVersion: 10.0, moz:processID: 19072, moz:profile: C:\Users\jacks\AppData\Loca..., moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, userAgent: Mozilla/5.0 (Windows NT 10....}
+Session ID: 73525076-8dd3-40fe-bc0b-f85d40c970ac
+at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:313)
+at com.example.tests.SmokeTestNG.setUp(SmokeTestNG.java:26)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:71)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:400)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:333)
+at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:833)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:600)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+at org.testng.TestRunner.privateRun(TestRunner.java:739)
+at org.testng.TestRunner.run(TestRunner.java:614)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.InvalidArgumentException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- isB2C2Displayed -->
-        <test-method is-config="true" signature="teardown()[pri:0, instance:com.example.tests.HomePageTests@6c64cb25]" started-at="2025-06-09T11:28:12 CEST" name="teardown" description="Method Level Teardown!" finished-at="2025-06-09T11:28:13 CEST" duration-ms="1066" status="PASS">
+        </test-method> <!-- shouldOpenHomePage -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.example.tests.SmokeTestNG@12468a38]" started-at="2026-02-04T11:12:36 CET" name="tearDown" finished-at="2026-02-04T11:12:36 CET" duration-ms="0" status="SKIP">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- teardown -->
-      </class> <!-- com.example.tests.HomePageTests -->
-    </test> <!-- HomePageTestChrome -->
-    <test started-at="2025-06-09T11:28:13 CEST" name="ContactPageTestChrome" finished-at="2025-06-09T11:28:33 CEST" duration-ms="20302">
-      <class name="com.example.tests.ContactPageTests">
-        <test-method is-config="true" signature="setup(java.lang.String,java.lang.String)[pri:0, instance:com.example.tests.ContactPageTests@6b2ea799]" started-at="2025-06-09T11:28:13 CEST" name="setup" description="Method Level Setup!" finished-at="2025-06-09T11:28:16 CEST" duration-ms="3267" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[firefox]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[false]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setup -->
-        <test-method signature="testContactForm(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.example.tests.ContactPageTests@6b2ea799]" started-at="2025-06-09T11:28:16 CEST" name="testContactForm" data-provider="contactFormData" finished-at="2025-06-09T11:28:22 CEST" duration-ms="5770" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[John Smith]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[john@b2c2.com]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[B2C2 Ltd.]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[Trader]]>
-              </value>
-            </param>
-            <param index="4">
-              <value>
-                <![CDATA[Looking forward to onboarding.]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testContactForm -->
-        <test-method is-config="true" signature="teardown()[pri:0, instance:com.example.tests.ContactPageTests@6b2ea799]" started-at="2025-06-09T11:28:22 CEST" name="teardown" description="Method Level Teardown!" finished-at="2025-06-09T11:28:23 CEST" duration-ms="959" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- teardown -->
-        <test-method is-config="true" signature="setup(java.lang.String,java.lang.String)[pri:0, instance:com.example.tests.ContactPageTests@6b2ea799]" started-at="2025-06-09T11:28:23 CEST" name="setup" description="Method Level Setup!" finished-at="2025-06-09T11:28:26 CEST" duration-ms="3214" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[firefox]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[false]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setup -->
-        <test-method signature="testContactForm(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.example.tests.ContactPageTests@6b2ea799]" started-at="2025-06-09T11:28:26 CEST" name="testContactForm" data-provider="contactFormData" finished-at="2025-06-09T11:28:32 CEST" duration-ms="5986" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[Alice Novak]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[alice@cryptox.com]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[CryptoX]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[Analyst]]>
-              </value>
-            </param>
-            <param index="4">
-              <value>
-                <![CDATA[Please contact me with API details.]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testContactForm -->
-        <test-method is-config="true" signature="teardown()[pri:0, instance:com.example.tests.ContactPageTests@6b2ea799]" started-at="2025-06-09T11:28:32 CEST" name="teardown" description="Method Level Teardown!" finished-at="2025-06-09T11:28:33 CEST" duration-ms="1100" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- teardown -->
-      </class> <!-- com.example.tests.ContactPageTests -->
-    </test> <!-- ContactPageTestChrome -->
-    <test started-at="2025-06-09T11:28:33 CEST" name="CucumberTests" finished-at="2025-06-09T11:28:55 CEST" duration-ms="22103">
-      <class name="com.example.runner.CucumberTestRunner">
-        <test-method is-config="true" signature="setUpClass(org.testng.ITestContext)[pri:0, instance:com.example.runner.CucumberTestRunner@7c6908d7]" started-at="2025-06-09T11:28:33 CEST" name="setUpClass" finished-at="2025-06-09T11:28:34 CEST" duration-ms="511" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[org.testng.TestRunner@2f465398]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUpClass -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:com.example.runner.CucumberTestRunner@7c6908d7]" started-at="2025-06-09T11:28:34 CEST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2025-06-09T11:28:44 CEST" duration-ms="10623" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA["Submit contact form with valid data"]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA["Contact US form submission"]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- runScenario -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:com.example.runner.CucumberTestRunner@7c6908d7]" started-at="2025-06-09T11:28:44 CEST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2025-06-09T11:28:55 CEST" duration-ms="10902" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA["Submit contact form with valid data"]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA["Contact US form submission"]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- runScenario -->
-        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.example.runner.CucumberTestRunner@7c6908d7]" started-at="2025-06-09T11:28:55 CEST" name="tearDownClass" finished-at="2025-06-09T11:28:55 CEST" duration-ms="58" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDownClass -->
-      </class> <!-- com.example.runner.CucumberTestRunner -->
-    </test> <!-- CucumberTests -->
-  </suite> <!-- TestSuite -->
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.example.tests.SmokeTestNG -->
+    </test> <!-- SmokeTest -->
+  </suite> <!-- TestNG Smoke Suite -->
 </testng-results>
