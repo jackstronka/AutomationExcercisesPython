@@ -1,9 +1,0 @@
-C:\JavaAutomation\AutomationTemplate\src\test\java\com\example\data\ContactFormDataProvider.java
-C:\JavaAutomation\AutomationTemplate\src\test\java\com\example\hooks\Hooks.java
-C:\JavaAutomation\AutomationTemplate\src\test\java\com\example\pages\BasePage.java
-C:\JavaAutomation\AutomationTemplate\src\test\java\com\example\pages\HomePage.java
-C:\JavaAutomation\AutomationTemplate\src\test\java\com\example\runner\CucumberTestRunner.java
-C:\JavaAutomation\AutomationTemplate\src\test\java\com\example\steps\SmokeSteps.java
-C:\JavaAutomation\AutomationTemplate\src\test\java\com\example\tests\SmokeTestNG.java
-C:\JavaAutomation\AutomationTemplate\src\test\java\com\example\utilities\ConfigReader.java
-C:\JavaAutomation\AutomationTemplate\src\test\java\com\example\utilities\WebDriverFactory.java

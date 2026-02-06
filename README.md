@@ -1,261 +1,170 @@
-## Automation Template – UI test starter
+## Automation Exercises Cucumber – E2E
 
-Template for automated UI tests for any website, based on **Selenium WebDriver**, **TestNG**, and **Cucumber** (with a TestNG runner).
+Projekt automatyzacji testów UI dla [automationexercise.com](https://automationexercise.com) – **Selenium WebDriver**, **Cucumber** (BDD), **TestNG**.
 
 ---
 
-## 📁 Project structure
+## 📁 Struktura projektu
 
 ```text
-automation-template/
+AutomationExcercisesCucumber/
 ├── pom.xml
-├── testng.xml
 ├── README.md
 └── src/
     └── test/
         ├── java/
         │   └── com/example/
+        │       ├── context/
+        │       │   └── ScenarioContext.java
         │       ├── pages/
         │       │   ├── BasePage.java
-        │       │   └── HomePage.java
+        │       │   ├── HomePage.java
+        │       │   ├── LoginPage.java
+        │       │   ├── SignupPage.java
+        │       │   ├── AccountCreatedPage.java
+        │       │   └── ContactUsPage.java
         │       ├── hooks/
         │       │   └── Hooks.java
         │       ├── steps/
-        │       │   └── SmokeSteps.java
+        │       │   ├── CommonSteps.java
+        │       │   ├── RegistrationSteps.java
+        │       │   ├── LoginSteps.java
+        │       │   ├── AccountSteps.java
+        │       │   └── ContactUsSteps.java
         │       ├── runner/
         │       │   └── CucumberTestRunner.java
-        │       ├── tests/
-        │       │   └── SmokeTestNG.java
         │       └── utilities/
         │           ├── ConfigReader.java
         │           └── WebDriverFactory.java
         └── resources/
             ├── config.properties
+            ├── testdata/
+            │   └── upload.txt
             └── features/
-                └── smoke.feature
+                ├── TC01_RegisterUser.feature
+                ├── TC02_LoginUser.feature
+                ├── TC03_LoginUserIncorrect.feature
+                ├── TC04_LogoutUser.feature
+                ├── TC05_RegisterUserExistingEmail.feature
+                └── TC06_ContactUsForm.feature
 ```
 
-### Directory overview
+### Opis katalogów
 
-- **pages** – Page Objects (pages/application, shared logic in `BasePage`)
-- **hooks** – Cucumber hooks (`@Before`, `@After`) executed before/after each scenario
-- **steps** – Gherkin step definitions (`Given / When / Then`)
-- **runner** – `CucumberTestRunner` for Maven profile `cucumber`
-- **tests** – TestNG test classes (without Cucumber), e.g. `SmokeTestNG`
-- **utilities** – shared utilities: `WebDriverFactory`, `ConfigReader`
-- **resources/config.properties** – environment configuration
-- **resources/features** – Cucumber `.feature` files
+- **pages** – Page Objects (BasePage + strony aplikacji)
+- **hooks** – Cucumber hooks (`@Before`, `@After`, `@BeforeStep`) – setup przeglądarki, overlay cookies/reklam
+- **steps** – definicje kroków Gherkin (`Given` / `When` / `Then`)
+- **runner** – `CucumberTestRunner` uruchamiany przez profil Maven `cucumber`
+- **utilities** – `WebDriverFactory`, `ConfigReader`
+- **resources/config.properties** – konfiguracja środowiska
+- **resources/features** – pliki `.feature` Cucumber
 
 ---
 
-## ✅ Requirements
+## ✅ Wymagania
 
-- Java **17+** (project configured for **JDK 21**)
+- Java **17+** (projekt na **JDK 21**)
 - Maven **3+**
-- Installed **Chrome** and/or **Firefox**
+- Chrome i/lub Firefox
 
 ---
 
-## ⚙️ Configuration – `config.properties`
+## ⚙️ Konfiguracja – `config.properties`
 
-### Key properties
-
-#### Environment
-
-```properties
-env=local
-```
-
-#### Application
+### Kluczowe właściwości
 
 ```properties
 baseUrl=https://automationexercise.com
-```
-
-#### Browser
-
-```properties
-browser=chrome        # chrome / firefox
-headless=false        # true / false
+browser=firefox
+headless=false
 windowWidth=1200
 windowHeight=800
-```
-
-#### Timeouts (seconds)
-
-```properties
-implicitWait=0
+maximizeWindow=true
 explicitWait=10
 pageLoadTimeout=30
 ```
 
-All values can be **overridden from the command line** using `-D`, for example:
+Wartości można nadpisać z linii poleceń przez `-D`:
 
 ```bash
-mvn clean test -P cucumber -Dbrowser=firefox -Dheadless=true
+mvn test -Pcucumber -Dbrowser=firefox -Dheadless=true
 ```
 
-### Configuration precedence (`ConfigReader`)
+### Kolejność (`ConfigReader`)
 
-1. System property (e.g. `-Dbrowser=firefox`)
+1. System property (np. `-Dbrowser=firefox`)
 2. `config.properties`
 
 ---
 
-## ▶️ How to run tests
-
-### 1️⃣ TestNG (test classes)
-
-Profile **`testng`** uses `testng.xml` and the class  
-`com.example.tests.SmokeTestNG`.
-
-#### Run smoke test:
+## ▶️ Uruchamianie testów
 
 ```bash
-mvn clean test -P testng -Dbrowser=chrome -Dheadless=false
+mvn test -Pcucumber
 ```
 
-#### `testng.xml`
+Z opcjami:
 
-```xml
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="TestNG Smoke Suite">
-    <test name="SmokeTest">
-        <classes>
-            <class name="com.example.tests.SmokeTestNG"/>
-        </classes>
-    </test>
-</suite>
+```bash
+mvn test -Pcucumber -Dbrowser=chrome -Dheadless=false
 ```
 
-In `SmokeTestNG`:
-- WebDriver is created via `WebDriverFactory.create()`
-- `baseUrl` is read from `ConfigReader`
+### Raporty
+
+- `target/cucumber-reports.html`
+- `target/cucumber-report.json`
 
 ---
 
-### 2️⃣ Cucumber (BDD with TestNG)
-
-Profile **`cucumber`** uses `CucumberTestRunner`.
-
-- **features** – `src/test/resources/features`
-- **glue** – `com.example.steps`, `com.example.hooks`
-- **reports**:
-  - `target/cucumber-reports.html`
-  - `target/cucumber-report.json`
-
-#### Run:
-
-```bash
-mvn clean test -P cucumber -Dbrowser=chrome -Dheadless=false
-```
-
-`CucumberTestRunner`:
-- wires `.feature` scenarios with step definitions in `steps`
-- automatically uses `Hooks` for browser setup/teardown
-
----
-
-## 🧠 How the framework works
+## 🧠 Działanie frameworka
 
 ### WebDriverFactory
 
-```java
-public static WebDriver create()
-```
-
-- Reads `browser`, `headless`, `windowWidth`, `windowHeight`,
-  `implicitWait`, `pageLoadTimeout` from `ConfigReader`
-- Creates appropriate WebDriver (Chrome / Firefox)
-- Supports headless mode
-- Applies timeouts and window size
-
-All configuration comes from `config.properties` or `-D` overrides.
-
----
+- Odczytuje `browser`, `headless`, `maximizeWindow`, `windowWidth`, `windowHeight` z konfiguracji
+- Tworzy WebDriver (Chrome / Firefox)
+- Gdy `maximizeWindow=true`, pomija `setSize` (okno jest maksymalizowane w Hooks)
 
 ### ConfigReader
 
-- Loads `config.properties` from the classpath
-- Methods:
-  - `get(key)`
-  - `get(key, defaultValue)`
-– Priority: **system property → file**
+- Ładuje `config.properties` z classpath
+- Metody: `get(key)`, `get(key, defaultValue)`
+- Walidacja: `get(key)` rzuca wyjątek, gdy klucz brakuje lub wartość jest pusta
 
----
-
-### Hooks (Cucumber)
+### Hooks
 
 **@Before**
-- creates WebDriver (`WebDriverFactory.create()`)
-- optionally maximizes the window (based on configuration)
-- opens `baseUrl`
+- Tworzy WebDriver (współdzielony między scenariuszami)
+- Maksymalizuje okno (jeśli `maximizeWindow=true`)
+- Otwiera `baseUrl`
+- Zamyka overlay cookies, usuwa reklamy, czyści `#google_vignette`
 
 **@After**
-- closes the browser (`driver.quit()`)
+- Nie zamyka przeglądarki (współdzielona)
+- Zamykanie w shutdown hook po zakończeniu wszystkich testów
 
----
+**@BeforeStep**
+- Usuwa overlaye reklam przed każdym krokiem
 
 ### BasePage
 
-Shared helper methods:
-- `click`
-- `writeText`
-- `sendKeys`
-- `readText`
-- `getElement`
-- `isElementPresent`
-- getting page title and current URL
+Wspólne metody: `click`, `clickViaJavaScript`, `writeText`, `readText`, `getElement`, `isElementPresent`.
 
-Uses `explicitWait` from configuration.
+### Feature files (Test Cases)
 
----
-
-### HomePage
-
-Example Page Object:
-- `isDisplayed()` – checks that the main header is visible
+- **TC01** – Register User
+- **TC02** – Login User (correct credentials)
+- **TC03** – Login User (incorrect credentials)
+- **TC04** – Logout User
+- **TC05** – Register User with existing email
+- **TC06** – Contact Us Form
 
 ---
 
-### SmokeSteps
+## 🧩 Użycie jako szablon
 
-Example Cucumber steps:
-- `Given user opens web page` – verifies that the driver exists (initialized in Hooks)
-- `Then home page should be displayed` – uses `HomePage.isDisplayed()`
-
----
-
-### `smoke.feature`
-
-```gherkin
-Feature: Smoke test
-
-  Scenario: Open home page
-    Given user opens web page
-    Then home page should be displayed
-```
-
----
-
-## 🧩 How to use this project as a template
-
-1. Clone this repository or copy the folder as a starting template.
-2. Change `baseUrl` in `config.properties`.
-3. Add your Page Objects in `src/test/java/com/example/pages/`.
-4. Add feature files in `src/test/resources/features/`.
-5. Add matching step definitions in `src/test/java/com/example/steps/`.
-6. Optionally extend `Hooks` (screenshots, logging, reporting).
-
-### Running tests
-
-- **TestNG**
-  ```bash
-  mvn clean test -P testng
-  ```
-
-- **Cucumber (BDD)**
-  ```bash
-  mvn clean test -P cucumber
-  ```
-
+1. Skopiuj projekt.
+2. Zmień `baseUrl` w `config.properties`.
+3. Dodaj Page Objects w `pages/`.
+4. Dodaj pliki `.feature` w `resources/features/`.
+5. Dodaj definicje kroków w `steps/`.
+6. Opcjonalnie rozszerz Hooks (screenshots, logowanie).

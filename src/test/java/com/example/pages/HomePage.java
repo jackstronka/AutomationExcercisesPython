@@ -8,6 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class HomePage extends BasePage {
 
     private final By header = By.tagName("header");
+    // Link: <a href="/login"><i class="fa fa-lock"></i> Signup / Login</a>
+    private final By signupLoginLink = By.cssSelector("a[href='/login']");
+    private final By contactUsLink = By.cssSelector("a[href='/contact_us']");
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -18,5 +21,13 @@ public class HomePage extends BasePage {
                 ExpectedConditions.visibilityOfElementLocated(header)
         );
         return headerElement.isDisplayed();
+    }
+
+    public void clickSignupLogin() {
+        click(signupLoginLink);
+    }
+
+    public void clickContactUs() {
+        click(contactUsLink);
     }
 }

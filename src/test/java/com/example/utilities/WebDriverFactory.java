@@ -6,7 +6,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import com.example.utilities.ConfigReader;
 import org.openqa.selenium.Dimension;
 import java.time.Duration;
 
@@ -16,15 +15,16 @@ public class WebDriverFactory {
     // ⭐ METODA DOCELOWA – TEMPLATE
     public static WebDriver create() {
         String browser = ConfigReader.get("browser");
-        boolean headless = Boolean.parseBoolean(ConfigReader.get("headless"));
-        int width = Integer.parseInt(ConfigReader.get("windowWidth"));
-        int height = Integer.parseInt(ConfigReader.get("windowHeight"));
+        boolean headless = Boolean.parseBoolean(ConfigReader.get("headless", "false"));
+        boolean maximize = Boolean.parseBoolean(ConfigReader.get("maximizeWindow", "false"));
+        int width = Integer.parseInt(ConfigReader.get("windowWidth", "1200"));
+        int height = Integer.parseInt(ConfigReader.get("windowHeight", "800"));
 
-        return create(browser, headless, width, height);
+        return create(browser, headless, maximize, width, height);
     }
 
     // ⭐ METODA TECHNICZNA
-    private static WebDriver create(String browser, boolean headless, int width, int height) {
+    private static WebDriver create(String browser, boolean headless, boolean maximize, int width, int height) {
         WebDriver driver;
 
         switch (browser.toLowerCase()) {
@@ -57,7 +57,9 @@ public class WebDriverFactory {
                 Duration.ofSeconds(Long.parseLong(ConfigReader.get("pageLoadTimeout", "30")))
         );
 
-        driver.manage().window().setSize(new Dimension(width, height));
+        if (!maximize) {
+            driver.manage().window().setSize(new Dimension(width, height));
+        }
         return driver;
     }
 }

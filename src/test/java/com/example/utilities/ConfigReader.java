@@ -28,15 +28,24 @@ public class ConfigReader {
      * Read value with priority:
      * 1) System property (e.g. -Dbrowser=firefox)
      * 2) config.properties
+     *
+     * @throws IllegalArgumentException jeśli klucz nie istnieje lub wartość jest pusta
      */
     public static String get(String key) {
-        return System.getProperty(key, properties.getProperty(key));
+        String value = System.getProperty(key, properties.getProperty(key));
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Missing or empty config key: " + key + ". Add to config.properties or use -D" + key + "=value"
+            );
+        }
+        return value;
     }
 
     /**
-     * Overload with default value for convenient usage.
+     * Overload z domyślną wartością – gdy klucz nie istnieje lub wartość jest pusta, zwraca defaultValue.
      */
     public static String get(String key, String defaultValue) {
-        return System.getProperty(key, properties.getProperty(key, defaultValue));
+        String value = System.getProperty(key, properties.getProperty(key, defaultValue));
+        return (value == null || value.isBlank()) ? defaultValue : value;
     }
 }

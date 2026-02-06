@@ -5,6 +5,7 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
         features = "src/test/resources/features",
+        tags = "not @ignore",
         glue = {
                 "com.example.steps",
                 "com.example.hooks" // includes Hooks for setup/teardown
