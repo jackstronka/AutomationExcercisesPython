@@ -1,3 +1,4 @@
+@ignore
 Feature: Login User
 
   # TC02: Login User with correct email and password

@@ -11,6 +11,7 @@ public class HomePage extends BasePage {
     // Link: <a href="/login"><i class="fa fa-lock"></i> Signup / Login</a>
     private final By signupLoginLink = By.cssSelector("a[href='/login']");
     private final By contactUsLink = By.cssSelector("a[href='/contact_us']");
+    private final By productsLink = By.cssSelector("a[href='/products']");
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -29,5 +30,9 @@ public class HomePage extends BasePage {
 
     public void clickContactUs() {
         click(contactUsLink);
+    }
+
+    public void clickProducts() {
+        click(productsLink);
     }
 }

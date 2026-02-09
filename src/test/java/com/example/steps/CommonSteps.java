@@ -6,6 +6,7 @@ import com.example.pages.AccountCreatedPage;
 import com.example.pages.ContactUsPage;
 import com.example.pages.HomePage;
 import com.example.pages.LoginPage;
+import com.example.pages.ProductsPage;
 import com.example.pages.SignupPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -65,6 +66,12 @@ public class CommonSteps {
             Assert.assertTrue(
                     loginPage.isLoginToYourAccountSectionVisible(),
                     "\"Login to your account\" section powinna być widoczna"
+            );
+        } else if ("SEARCHED PRODUCTS".equals(sectionText)) {
+            ProductsPage productsPage = ScenarioContext.get(ScenarioContext.PRODUCTS_PAGE);
+            Assert.assertTrue(
+                    productsPage != null && productsPage.isSearchedProductsVisible(),
+                    "Sekcja \"Searched Products\" powinna być widoczna"
             );
         } else if ("ENTER ACCOUNT INFORMATION".equals(sectionText)) {
             String lastEnteredName = ScenarioContext.get(ScenarioContext.LAST_ENTERED_NAME);

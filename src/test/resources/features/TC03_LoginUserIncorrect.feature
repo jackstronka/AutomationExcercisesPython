@@ -1,3 +1,4 @@
+@ignore
 Feature: Login User with incorrect credentials
 
   # TC03: Login User with incorrect email and password

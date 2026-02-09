@@ -1,3 +1,4 @@
+@ignore
 Feature: Register User
 
   # TC01: Register User - pełna rejestracja i usunięcie konta

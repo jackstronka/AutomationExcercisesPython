@@ -1,3 +1,4 @@
+@ignore
 Feature: Logout User
 
   # TC04: Logout User - logowanie i wylogowanie

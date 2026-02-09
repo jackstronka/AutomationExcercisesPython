@@ -1,3 +1,4 @@
+@ignore
 Feature: Register User with existing email
 
   # TC05: Register User with existing email

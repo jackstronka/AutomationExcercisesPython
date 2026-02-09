@@ -22,7 +22,9 @@ AutomationExcercisesCucumber/
         │       │   ├── LoginPage.java
         │       │   ├── SignupPage.java
         │       │   ├── AccountCreatedPage.java
-        │       │   └── ContactUsPage.java
+        │       │   ├── ContactUsPage.java
+        │       │   ├── ProductsPage.java
+        │       │   └── ProductDetailPage.java
         │       ├── hooks/
         │       │   └── Hooks.java
         │       ├── steps/
@@ -30,7 +32,9 @@ AutomationExcercisesCucumber/
         │       │   ├── RegistrationSteps.java
         │       │   ├── LoginSteps.java
         │       │   ├── AccountSteps.java
-        │       │   └── ContactUsSteps.java
+        │       │   ├── ContactUsSteps.java
+        │       │   ├── ProductsSteps.java
+        │       │   └── SearchProductSteps.java
         │       ├── runner/
         │       │   └── CucumberTestRunner.java
         │       └── utilities/
@@ -46,11 +50,14 @@ AutomationExcercisesCucumber/
                 ├── TC03_LoginUserIncorrect.feature
                 ├── TC04_LogoutUser.feature
                 ├── TC05_RegisterUserExistingEmail.feature
-                └── TC06_ContactUsForm.feature
+                ├── TC06_ContactUsForm.feature
+                ├── TC07_VerifyAllProducts.feature
+                └── TC08_SearchProduct.feature
 ```
 
 ### Opis katalogów
 
+- **context** – `ScenarioContext` – współdzielony stan między klasami stepów w ramach scenariusza
 - **pages** – Page Objects (BasePage + strony aplikacji)
 - **hooks** – Cucumber hooks (`@Before`, `@After`, `@BeforeStep`) – setup przeglądarki, overlay cookies/reklam
 - **steps** – definicje kroków Gherkin (`Given` / `When` / `Then`)
@@ -147,24 +154,21 @@ mvn test -Pcucumber -Dbrowser=chrome -Dheadless=false
 
 ### BasePage
 
-Wspólne metody: `click`, `clickViaJavaScript`, `writeText`, `readText`, `getElement`, `isElementPresent`.
+Wspólne metody: `click`, `clickViaJavaScript`, `writeText`, `readText`, `getElement`, `isElementPresent`, `selectByValueViaJavaScript`, `selectByVisibleTextViaJavaScript`.
 
 ### Feature files (Test Cases)
 
-- **TC01** – Register User
-- **TC02** – Login User (correct credentials)
-- **TC03** – Login User (incorrect credentials)
-- **TC04** – Logout User
-- **TC05** – Register User with existing email
-- **TC06** – Contact Us Form
+| TC | Opis |
+|----|------|
+| **TC01** | Register User |
+| **TC02** | Login User (correct credentials) |
+| **TC03** | Login User (incorrect credentials) |
+| **TC04** | Logout User |
+| **TC05** | Register User with existing email |
+| **TC06** | Contact Us Form |
+| **TC07** | Verify All Products and product detail page |
+| **TC08** | Search Product |
+
+Scenariusze z tagiem `@ignore` są pomijane przy domyślnym uruchomieniu (`tags = "not @ignore"`).
 
 ---
-
-## 🧩 Użycie jako szablon
-
-1. Skopiuj projekt.
-2. Zmień `baseUrl` w `config.properties`.
-3. Dodaj Page Objects w `pages/`.
-4. Dodaj pliki `.feature` w `resources/features/`.
-5. Dodaj definicje kroków w `steps/`.
-6. Opcjonalnie rozszerz Hooks (screenshots, logowanie).

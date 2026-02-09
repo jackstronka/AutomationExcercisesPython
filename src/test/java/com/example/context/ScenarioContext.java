@@ -16,6 +16,8 @@ public final class ScenarioContext {
     public static final String SIGNUP_PAGE = "signupPage";
     public static final String ACCOUNT_CREATED_PAGE = "accountCreatedPage";
     public static final String CONTACT_US_PAGE = "contactUsPage";
+    public static final String PRODUCTS_PAGE = "productsPage";
+    public static final String PRODUCT_DETAIL_PAGE = "productDetailPage";
     public static final String LAST_ENTERED_NAME = "lastEnteredName";
     public static final String LAST_ENTERED_EMAIL = "lastEnteredEmail";
     public static final String REGISTERED_EMAIL = "registeredEmail";

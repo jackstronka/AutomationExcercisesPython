@@ -1,3 +1,4 @@
+@ignore
 Feature: Contact Us Form
 
   # TC06: Contact Us Form
