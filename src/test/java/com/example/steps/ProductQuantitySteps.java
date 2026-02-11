@@ -8,7 +8,6 @@ import com.example.pages.ProductDetailPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 
 public class ProductQuantitySteps {
@@ -22,9 +21,8 @@ public class ProductQuantitySteps {
 
     @When("I set product quantity to {int}")
     public void iSetProductQuantityTo(int quantity) {
-        // On Automation Exercise page quantity field usually has id='quantity'
-        Hooks.driver.findElement(By.id("quantity")).clear();
-        Hooks.driver.findElement(By.id("quantity")).sendKeys(String.valueOf(quantity));
+        ProductDetailPage productDetailPage = ScenarioContext.get(ScenarioContext.PRODUCT_DETAIL_PAGE);
+        productDetailPage.setQuantity(quantity);
     }
 
     @And("I click Add to cart on product detail page")

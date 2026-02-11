@@ -19,3 +19,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Test output / temp
+*_result.txt

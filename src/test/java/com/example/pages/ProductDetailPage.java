@@ -17,6 +17,7 @@ public class ProductDetailPage extends BasePage {
     private final By productBrand = By.xpath("//div[contains(@class,'product-information') or contains(@class,'product-info')]//*[contains(.,'Brand:')]");
     private final By addToCartButton = By.cssSelector("button.btn.btn-default.cart");
     private final By viewCartLinkInModal = By.cssSelector(".modal a[href='/view_cart'], .modal-content a[href='/view_cart']");
+    private final By quantityInput = By.id("quantity");
 
     public ProductDetailPage(WebDriver driver) {
         super(driver);
@@ -57,6 +58,10 @@ public class ProductDetailPage extends BasePage {
                 && isProductAvailabilityVisible()
                 && isProductConditionVisible()
                 && isProductBrandVisible();
+    }
+
+    public void setQuantity(int quantity) {
+        writeText(quantityInput, String.valueOf(quantity));
     }
 
     public void clickAddToCart() {
