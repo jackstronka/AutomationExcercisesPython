@@ -59,12 +59,13 @@ public class Hooks {
 
     @BeforeStep
     public void beforeStep() {
+        dismissCookieOverlay();
         dismissAdOverlays();
         removeGoogleVignetteFromUrl();
     }
 
     /**
-     * Usuwa #google_vignette z adresu URL (dodawane automatycznie przez reklamy Google).
+     * Removes #google_vignette from URL (added automatically by Google ads).
      */
     private void removeGoogleVignetteFromUrl() {
         try {
@@ -80,17 +81,17 @@ public class Hooks {
     }
 
     /**
-     * Ukrywa/usuwa reklamy – w tym Google Vignette ads, iframe'y Google Ads.
+     * Hides/removes ads – including Google Vignette ads, Google Ads iframes.
      */
     private void dismissAdOverlays() {
         try {
-            // 1. Usuń z DOM (najskuteczniejsze dla Vignette)
+            // 1. Remove from DOM (most effective for Vignette)
             String removeScript = ""
                     + "document.querySelectorAll('ins.adsbygoogle, .adsbygoogle-noablate, "
                     + "iframe[id*=\"aswift\"], iframe[id*=\"google_ads_iframe\"], iframe[id*=\"ad_iframe\"]').forEach(function(e){ e.remove(); });";
             ((JavascriptExecutor) driver).executeScript(removeScript);
 
-            // 2. Ukryj pozostałe (fallback)
+            // 2. Hide remaining (fallback)
             String hideScript = ""
                     + "document.querySelectorAll('iframe[title*=\"Advertisement\"], iframe[title*=\"Reklama\"], [id*=\"google_ads\"]').forEach(function(e){ "
                     + "e.style.setProperty('display','none','important'); e.style.setProperty('visibility','hidden','important'); });";
@@ -101,17 +102,17 @@ public class Hooks {
     }
 
     /**
-     * Zamyka overlay zgody na cookies (fc-dialog-overlay), który może zasłaniać elementy.
+     * Dismisses cookie consent overlay (fc-dialog-overlay) that may block elements.
      */
     private void dismissCookieOverlay() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-            // Czekamy na pojawienie się overlay (może nie być widoczny przy powtórnych wizytach)
+            // Wait for overlay (may not be visible on repeat visits)
             if (driver.findElements(By.cssSelector(".fc-dialog-overlay, .fc-consent")).isEmpty()) {
                 return;
             }
 
-            // Próba 1: przycisk akceptacji (elementToBeClickable czeka na animację)
+            // Attempt 1: consent button (elementToBeClickable waits for animation)
             By[] acceptSelectors = {
                     By.cssSelector(".fc-cta-consent"),
                     By.cssSelector(".fc-consent .fc-primary-button"),
@@ -124,18 +125,18 @@ public class Hooks {
                     return;
                 }
             }
-            // Próba 2: ukryj overlay przez JavaScript (fallback)
+            // Attempt 2: hide overlay via JavaScript (fallback)
             ((JavascriptExecutor) driver).executeScript(
                     "var el = document.querySelector('.fc-dialog-overlay'); if(el) el.style.display='none';"
             );
         } catch (Exception e) {
-            log.debug("dismissCookieOverlay: {} (overlay może nie być widoczny)", e.getMessage());
+            log.debug("dismissCookieOverlay: {} (overlay may not be visible)", e.getMessage());
         }
     }
 
     @After
     public void tearDown() {
-        // Nie zamykamy przeglądarki – współdzielona między scenariuszami.
-        // Zamykana w shutdown hook po zakończeniu wszystkich testów.
+        // Do not close browser – shared between scenarios.
+        // Closed in shutdown hook after all tests complete.
     }
 }

@@ -6,32 +6,33 @@ import com.example.pages.AccountCreatedPage;
 import com.example.pages.HomePage;
 import com.example.pages.LoginPage;
 import com.example.pages.SignupPage;
-import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 
 public class LoginSteps {
 
     @Given("I have a registered user ready for login")
-    public void iHaveARegisteredUserReadyForLogin(DataTable dataTable) {
-        var row = dataTable.asMaps(String.class, String.class).get(0);
-        String name = row.get("name");
-        String password = row.get("password");
-        String title = row.get("title");
-        String day = row.get("day");
-        String month = row.get("month");
-        String year = row.get("year");
-        String firstName = row.get("firstName");
-        String lastName = row.get("lastName");
-        String address = row.get("address");
-        String country = row.get("country");
-        String state = row.get("state");
-        String city = row.get("city");
-        String zipcode = row.get("zipcode");
-        String mobile = row.get("mobile");
+    public void iHaveARegisteredUserReadyForLogin() {
+        completeRegistrationAndLogout(
+                "Login User",
+                "Test123!",
+                "Mr", "15", "6", "1990",
+                "Jan", "Kowalski", "ul. Test 1", "India", "Mazowieckie", "Warsaw", "00-001", "123456789"
+        );
+    }
 
+    @Given("I have a user registered with email {string}")
+    public void iHaveAUserRegisteredWithEmail(String email) {
+        ensureUserExistsAndNavigateToHome(email, "Test User", "Test123!",
+                "Mr", "15", "6", "1990",
+                "Jan", "Kowalski", "ul. Test 1", "India", "Mazowieckie", "Warsaw", "00-001", "123456789");
+    }
+
+    private void completeRegistrationAndLogout(String name, String password,
+                                               String title, String day, String month, String year,
+                                               String firstName, String lastName, String address,
+                                               String country, String state, String city, String zipcode, String mobile) {
         ScenarioContext.put(ScenarioContext.REGISTERED_PASSWORD, password);
-
         HomePage homePage = ScenarioContext.get(ScenarioContext.HOME_PAGE);
         homePage.clickSignupLogin();
         LoginPage loginPage = new LoginPage(Hooks.driver);
@@ -46,17 +47,47 @@ public class LoginSteps {
 
         SignupPage signupPage = new SignupPage(Hooks.driver);
         ScenarioContext.put(ScenarioContext.SIGNUP_PAGE, signupPage);
+        completeSignupAndLogout(signupPage, password, title, day, month, year,
+                firstName, lastName, address, country, state, city, zipcode, mobile);
+    }
+
+    private void ensureUserExistsAndNavigateToHome(String email, String name, String password,
+                                                    String title, String day, String month, String year,
+                                                    String firstName, String lastName, String address,
+                                                    String country, String state, String city, String zipcode, String mobile) {
+        HomePage homePage = ScenarioContext.get(ScenarioContext.HOME_PAGE);
+        homePage.clickSignupLogin();
+        LoginPage loginPage = new LoginPage(Hooks.driver);
+        ScenarioContext.put(ScenarioContext.LOGIN_PAGE, loginPage);
+        loginPage.enterNewUserNameAndEmail(name, email);
+        loginPage.clickSignupButton();
+
+        SignupPage signupPage = new SignupPage(Hooks.driver);
+        ScenarioContext.put(ScenarioContext.SIGNUP_PAGE, signupPage);
+
+        if (signupPage.isEnterAccountInformationSectionVisible()) {
+            completeSignupAndLogout(signupPage, password, title, day, month, year,
+                    firstName, lastName, address, country, state, city, zipcode, mobile);
+        }
+
+        homePage = new HomePage(Hooks.driver);
+        homePage.navigateToHome();
+        ScenarioContext.put(ScenarioContext.HOME_PAGE, homePage);
+    }
+
+    private void completeSignupAndLogout(SignupPage signupPage, String password,
+                                         String title, String day, String month, String year,
+                                         String firstName, String lastName, String address,
+                                         String country, String state, String city, String zipcode, String mobile) {
         signupPage.fillAccountInformation(password, title, day, month, year);
         signupPage.subscribeToNewsletter();
         signupPage.agreeToSpecialOffers();
         signupPage.fillAddressDetails(firstName, lastName, address, country, state, city, zipcode, mobile);
         signupPage.clickCreateAccount();
-
         AccountCreatedPage accountCreatedPage = new AccountCreatedPage(Hooks.driver);
         ScenarioContext.put(ScenarioContext.ACCOUNT_CREATED_PAGE, accountCreatedPage);
         accountCreatedPage.clickContinue();
-
-        loginPage = new LoginPage(Hooks.driver);
+        LoginPage loginPage = new LoginPage(Hooks.driver);
         ScenarioContext.put(ScenarioContext.LOGIN_PAGE, loginPage);
         loginPage.clickLogout();
     }
@@ -73,5 +104,11 @@ public class LoginSteps {
     public void iEnterIncorrectEmailAddressAndPassword() {
         LoginPage loginPage = ScenarioContext.get(ScenarioContext.LOGIN_PAGE);
         loginPage.enterLoginCredentials("wrong@example.com", "WrongPassword123!");
+    }
+
+    @When("I click the Login button on login form")
+    public void iClickTheLoginButtonOnLoginForm() {
+        LoginPage loginPage = ScenarioContext.get(ScenarioContext.LOGIN_PAGE);
+        loginPage.clickLoginButton();
     }
 }

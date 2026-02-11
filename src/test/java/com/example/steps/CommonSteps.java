@@ -12,25 +12,31 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import com.example.utilities.ConfigReader;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import java.time.Duration;
 
 public class CommonSteps {
 
     @Given("I open the browser")
     public void iOpenTheBrowser() {
-        Assert.assertNotNull(Hooks.driver, "Przeglądarka powinna być uruchomiona");
+        Assert.assertNotNull(Hooks.driver, "Browser should be started");
         ScenarioContext.put(ScenarioContext.HOME_PAGE, new HomePage(Hooks.driver));
     }
 
     @And("I navigate to the home page")
     public void iNavigateToTheHomePage() {
-        // NOOP: strona główna jest otwierana w Hooks.setUp()
+        // NOOP: home page is opened in Hooks.setUp()
     }
 
     @Then("I should see the home page")
     public void iShouldSeeTheHomePage() {
         HomePage homePage = ScenarioContext.get(ScenarioContext.HOME_PAGE);
-        Assert.assertTrue(homePage.isDisplayed(), "Home page powinna być widoczna");
+        Assert.assertTrue(homePage.isDisplayed(), "Home page should be visible");
     }
 
     @When("I click on {string} button")
@@ -55,23 +61,23 @@ public class CommonSteps {
         if ("GET IN TOUCH".equals(sectionText) && contactUsPage != null) {
             Assert.assertTrue(
                     contactUsPage.isGetInTouchVisible(),
-                    "\"GET IN TOUCH\" section powinna być widoczna"
+                    "\"GET IN TOUCH\" section should be visible"
             );
         } else if ("New User Signup!".equals(sectionText)) {
             Assert.assertTrue(
                     loginPage.isNewUserSignupSectionVisible(),
-                    "\"New User Signup!\" section powinna być widoczna"
+                    "\"New User Signup!\" section should be visible"
             );
         } else if ("Login to your account".equals(sectionText)) {
             Assert.assertTrue(
                     loginPage.isLoginToYourAccountSectionVisible(),
-                    "\"Login to your account\" section powinna być widoczna"
+                    "\"Login to your account\" section should be visible"
             );
         } else if ("SEARCHED PRODUCTS".equals(sectionText)) {
             ProductsPage productsPage = ScenarioContext.get(ScenarioContext.PRODUCTS_PAGE);
             Assert.assertTrue(
                     productsPage != null && productsPage.isSearchedProductsVisible(),
-                    "Sekcja \"Searched Products\" powinna być widoczna"
+                    "\"Searched Products\" section should be visible"
             );
         } else if ("ENTER ACCOUNT INFORMATION".equals(sectionText)) {
             String lastEnteredName = ScenarioContext.get(ScenarioContext.LAST_ENTERED_NAME);
@@ -94,43 +100,18 @@ public class CommonSteps {
             SignupPage finalSignupPage = ScenarioContext.get(ScenarioContext.SIGNUP_PAGE);
             Assert.assertTrue(
                     finalSignupPage != null && finalSignupPage.isEnterAccountInformationSectionVisible(),
-                    "\"ENTER ACCOUNT INFORMATION\" section powinna być widoczna"
+                    "\"ENTER ACCOUNT INFORMATION\" section should be visible"
             );
         }
     }
 
+    /** Generic step for simple home actions only (per Rule 4). */
     @And("I click the {string} button")
     public void iClickTheButton(String buttonText) {
-        LoginPage loginPage = ScenarioContext.get(ScenarioContext.LOGIN_PAGE);
-        SignupPage signupPage = ScenarioContext.get(ScenarioContext.SIGNUP_PAGE);
-        AccountCreatedPage accountCreatedPage = ScenarioContext.get(ScenarioContext.ACCOUNT_CREATED_PAGE);
-        ContactUsPage contactUsPage = ScenarioContext.get(ScenarioContext.CONTACT_US_PAGE);
-
-        if ("Submit".equals(buttonText) && contactUsPage != null) {
-            contactUsPage.clickSubmit();
-        } else if ("OK".equals(buttonText) && contactUsPage != null) {
-            contactUsPage.acceptAlertIfPresent();
-        } else if ("Home".equals(buttonText) && contactUsPage != null) {
-            contactUsPage.clickHome();
-            ScenarioContext.put(ScenarioContext.HOME_PAGE, new HomePage(Hooks.driver));
-        } else if ("Signup".equals(buttonText)) {
-            loginPage.clickSignupButton();
-            ScenarioContext.put(ScenarioContext.SIGNUP_PAGE, new SignupPage(Hooks.driver));
-        } else if ("Create Account".equals(buttonText) && signupPage != null) {
-            signupPage.clickCreateAccount();
-        } else if ("Continue".equals(buttonText)) {
-            if (accountCreatedPage != null && accountCreatedPage.isAccountCreatedMessageVisible()) {
-                accountCreatedPage.clickContinue();
-            } else if (loginPage != null && loginPage.isAccountDeletedMessageVisible()) {
-                loginPage.clickContinueAfterDelete();
-            }
-        } else if ("Delete Account".equals(buttonText)) {
-            loginPage.clickDeleteAccount();
-        } else if ("Login".equals(buttonText) && loginPage != null) {
-            loginPage.clickLoginButton();
-        } else if ("Logout".equals(buttonText) && loginPage != null) {
-            loginPage.clickLogout();
-            ScenarioContext.put(ScenarioContext.LOGIN_PAGE, new LoginPage(Hooks.driver));
+        if ("Cart".equals(buttonText)) {
+            HomePage homePage = ScenarioContext.get(ScenarioContext.HOME_PAGE);
+            if (homePage == null) homePage = new HomePage(Hooks.driver);
+            homePage.clickCart();
         }
     }
 
@@ -139,7 +120,7 @@ public class CommonSteps {
         LoginPage loginPage = new LoginPage(Hooks.driver);
         Assert.assertTrue(
                 loginPage.isLoginToYourAccountSectionVisible(),
-                "Użytkownik powinien być przekierowany na stronę logowania"
+                "User should be redirected to login page"
         );
     }
 
@@ -152,17 +133,17 @@ public class CommonSteps {
         if ("Success! Your details have been submitted successfully.".equals(messageText) && contactUsPage != null) {
             Assert.assertTrue(
                     contactUsPage.isSuccessMessageVisible(),
-                    "Komunikat sukcesu Contact Us powinien być widoczny"
+                    "Contact Us success message should be visible"
             );
         } else if ("Your email or password is incorrect!".equals(messageText) && loginPage != null) {
             Assert.assertTrue(
                     loginPage.isLoginIncorrectErrorVisible(),
-                    "Komunikat \"Your email or password is incorrect!\" powinien być widoczny"
+                    "\"Your email or password is incorrect!\" message should be visible"
             );
         } else if ("Email Address already exist!".equals(messageText) && loginPage != null) {
             Assert.assertTrue(
                     loginPage.isEmailAlreadyExistsErrorVisible(),
-                    "Komunikat \"Email Address already exist!\" powinien być widoczny"
+                    "\"Email Address already exist!\" message should be visible"
             );
         } else if ("ACCOUNT CREATED!".equals(messageText)) {
             if (accountCreatedPage == null) {
@@ -171,13 +152,33 @@ public class CommonSteps {
             }
             Assert.assertTrue(
                     accountCreatedPage.isAccountCreatedMessageVisible(),
-                    "ACCOUNT CREATED! powinno być widoczne"
+                    "ACCOUNT CREATED! should be visible"
             );
         } else if ("ACCOUNT DELETED!".equals(messageText)) {
             Assert.assertTrue(
                     loginPage.isAccountDeletedMessageVisible(),
-                    "ACCOUNT DELETED! powinno być widoczne"
+                    "ACCOUNT DELETED! should be visible"
             );
+        } else if ("Your order has been placed successfully!".equals(messageText)) {
+            boolean successVisible = waitForOrderSuccess();
+            Assert.assertTrue(
+                    successVisible,
+                    "\"Your order has been placed successfully!\" message or payment_done page should be visible"
+            );
+        }
+    }
+
+    private static boolean waitForOrderSuccess() {
+        int timeout = Integer.parseInt(ConfigReader.get("orderSuccessWaitTimeout", "15"));
+        try {
+            WebDriverWait w = new WebDriverWait(Hooks.driver, Duration.ofSeconds(timeout));
+            w.until(d -> {
+                if (d.getCurrentUrl() != null && d.getCurrentUrl().contains("payment_done")) return true;
+                return !d.findElements(By.xpath("//*[contains(.,'Your order has been placed successfully!')]")).isEmpty();
+            });
+            return true;
+        } catch (TimeoutException ignored) {
+            return Hooks.driver.getCurrentUrl() != null && Hooks.driver.getCurrentUrl().contains("payment_done");
         }
     }
 

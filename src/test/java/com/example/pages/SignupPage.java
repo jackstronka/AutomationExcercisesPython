@@ -5,30 +5,30 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
- * Page Object dla formularza rejestracji – sekcja "Enter Account Information" i dane adresowe.
+ * Page Object for registration form – "Enter Account Information" section and address details.
  */
 public class SignupPage extends BasePage {
 
-    // ===== Sekcja "Enter Account Information" =====
+    // ===== "Enter Account Information" section =====
     // <b>Enter Account Information</b>
     private final By enterAccountInformationSection =
             By.xpath("//*[contains(text(),'Enter Account Information')]");
 
-    // Tytuł: Mr / Mrs
+    // Title: Mr / Mrs
     private final By titleMr = By.id("id_gender1");
     private final By titleMrs = By.id("id_gender2");
 
-    // Pola formularza (data-qa)
+    // Form fields (data-qa)
     private final By passwordInput = By.cssSelector("[data-qa='password']");
     private final By daysSelect = By.cssSelector("[data-qa='days']");
     private final By monthsSelect = By.cssSelector("[data-qa='months']");
     private final By yearsSelect = By.cssSelector("[data-qa='years']");
 
-    // Checkboxy
+    // Checkboxes
     private final By newsletterCheckbox = By.id("newsletter");
     private final By optinCheckbox = By.id("optin");
 
-    // ===== Dane adresowe (typowe data-qa na automationexercise) =====
+    // ===== Address fields (typical data-qa on automationexercise) =====
     private final By firstNameInput = By.cssSelector("[data-qa='first_name']");
     private final By lastNameInput = By.cssSelector("[data-qa='last_name']");
     private final By address1Input = By.cssSelector("[data-qa='address']");
@@ -38,20 +38,20 @@ public class SignupPage extends BasePage {
     private final By zipcodeInput = By.cssSelector("[data-qa='zipcode']");
     private final By mobileNumberInput = By.cssSelector("[data-qa='mobile_number']");
 
-    // Przyciski
+    // Buttons
     private final By createAccountButton = By.cssSelector("[data-qa='create-account']");
 
     public SignupPage(WebDriver driver) {
         super(driver);
     }
 
-    // ===== Weryfikacja sekcji =====
+    // ===== Section verification =====
 
     public boolean isEnterAccountInformationSectionVisible() {
         return isElementPresent(enterAccountInformationSection);
     }
 
-    // ===== Wypełnianie danych konta =====
+    // ===== Filling account data =====
 
     public void fillAccountInformation(String password, String title, String day, String month, String year) {
         if ("Mrs".equalsIgnoreCase(title)) {
@@ -77,8 +77,6 @@ public class SignupPage extends BasePage {
         }
     }
 
-    // ===== Dane adresowe =====
-
     public void fillAddressDetails(
             String firstName,
             String lastName,
@@ -99,26 +97,8 @@ public class SignupPage extends BasePage {
         writeText(mobileNumberInput, mobileNumber);
     }
 
-    // ===== Akcje =====
-
     public void clickCreateAccount() {
         wait.until(ExpectedConditions.elementToBeClickable(createAccountButton));
         clickViaJavaScript(createAccountButton);
-    }
-
-    // ===== Pomocnicze =====
-
-    private void selectByValue(By locator, String value) {
-        if (value == null || value.isEmpty()) return;
-        selectByValueViaJavaScript(locator, value);
-    }
-
-    private void selectByVisibleText(By locator, String text) {
-        if (text == null || text.isEmpty()) return;
-        selectByVisibleTextViaJavaScript(locator, text);
-    }
-
-    private boolean isCheckboxSelected(By locator) {
-        return isElementPresent(locator) && getElement(locator).isSelected();
     }
 }

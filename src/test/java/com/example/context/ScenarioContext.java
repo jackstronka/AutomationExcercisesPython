@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Współdzielony kontekst między klasami stepów w ramach jednego scenariusza.
- * Czyszczony przed każdym scenariuszem w Hooks.
+ * Shared context between step classes within a single scenario.
+ * Cleared before each scenario in Hooks.
  */
 public final class ScenarioContext {
 

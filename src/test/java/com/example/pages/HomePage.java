@@ -1,5 +1,6 @@
 package com.example.pages;
 
+import com.example.utilities.ConfigReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,8 @@ public class HomePage extends BasePage {
     private final By signupLoginLink = By.cssSelector("a[href='/login']");
     private final By contactUsLink = By.cssSelector("a[href='/contact_us']");
     private final By productsLink = By.cssSelector("a[href='/products']");
+    private final By firstHomeViewProductLink = By.xpath("(//a[contains(@href,'product_details')])[1]");
+    private final By cartLink = By.cssSelector("a[href='/view_cart']");
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -25,14 +28,27 @@ public class HomePage extends BasePage {
     }
 
     public void clickSignupLogin() {
-        click(signupLoginLink);
+        // JS click – bypasses cookie/ad overlay blocking the element
+        clickViaJavaScript(signupLoginLink);
     }
 
     public void clickContactUs() {
-        click(contactUsLink);
+        clickViaJavaScript(contactUsLink);
     }
 
     public void clickProducts() {
-        click(productsLink);
+        clickViaJavaScript(productsLink);
+    }
+
+    public void clickFirstHomeViewProduct() {
+        clickViaJavaScript(firstHomeViewProductLink);
+    }
+
+    public void clickCart() {
+        clickViaJavaScript(cartLink);
+    }
+
+    public void navigateToHome() {
+        driver.get(ConfigReader.get("baseUrl"));
     }
 }

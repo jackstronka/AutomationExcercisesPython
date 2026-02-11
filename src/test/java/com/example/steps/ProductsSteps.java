@@ -28,7 +28,7 @@ public class ProductsSteps {
         }
         Assert.assertTrue(
                 productsPage.isAllProductsPageVisible(),
-                "Użytkownik powinien być przekierowany na stronę All Products"
+                "User should be redirected to All Products page"
         );
     }
 
@@ -37,7 +37,7 @@ public class ProductsSteps {
         ProductsPage productsPage = ScenarioContext.get(ScenarioContext.PRODUCTS_PAGE);
         Assert.assertTrue(
                 productsPage.isProductsListVisible(),
-                "Lista produktów powinna być widoczna"
+                "Products list should be visible"
         );
     }
 
@@ -59,7 +59,7 @@ public class ProductsSteps {
         }
         Assert.assertTrue(
                 productDetailPage.isProductNameVisible(),
-                "Użytkownik powinien być na stronie szczegółów produktu"
+                "User should be on product detail page"
         );
     }
 
@@ -68,7 +68,7 @@ public class ProductsSteps {
         ProductDetailPage productDetailPage = ScenarioContext.get(ScenarioContext.PRODUCT_DETAIL_PAGE);
         Assert.assertTrue(
                 productDetailPage.areAllProductDetailsVisible(),
-                "Wszystkie szczegóły produktu (nazwa, kategoria, cena, dostępność, stan, marka) powinny być widoczne"
+                "All product details (name, category, price, availability, condition, brand) should be visible"
         );
     }
 }

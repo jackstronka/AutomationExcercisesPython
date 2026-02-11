@@ -3,7 +3,9 @@ package com.example.steps;
 import com.example.context.ScenarioContext;
 import com.example.hooks.Hooks;
 import com.example.pages.ContactUsPage;
+import com.example.pages.HomePage;
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 
 import java.net.URL;
@@ -11,6 +13,25 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class ContactUsSteps {
+
+    @When("I click the Submit button on contact form")
+    public void iClickTheSubmitButtonOnContactForm() {
+        ContactUsPage contactUsPage = ScenarioContext.get(ScenarioContext.CONTACT_US_PAGE);
+        contactUsPage.clickSubmit();
+    }
+
+    @And("I accept the alert")
+    public void iAcceptTheAlert() {
+        ContactUsPage contactUsPage = ScenarioContext.get(ScenarioContext.CONTACT_US_PAGE);
+        contactUsPage.acceptAlertIfPresent();
+    }
+
+    @When("I click the Home button on contact us page")
+    public void iClickTheHomeButtonOnContactUsPage() {
+        ContactUsPage contactUsPage = ScenarioContext.get(ScenarioContext.CONTACT_US_PAGE);
+        contactUsPage.clickHome();
+        ScenarioContext.put(ScenarioContext.HOME_PAGE, new HomePage(Hooks.driver));
+    }
 
     @When("I fill in the contact form")
     public void iFillInTheContactForm(DataTable dataTable) {
@@ -33,17 +54,14 @@ public class ContactUsSteps {
 
     private String getUploadFilePath() {
         URL resource = ContactUsSteps.class.getClassLoader().getResource("testdata/upload.txt");
-        if (resource == null) {
-            return Paths.get("src", "test", "resources", "testdata", "upload.txt")
-                    .toAbsolutePath()
-                    .toString();
+        if (resource != null) {
+            try {
+                return Path.of(resource.toURI()).toAbsolutePath().toString();
+            } catch (Exception ignored) {
+                // fallback below
+            }
         }
-        try {
-            return Path.of(resource.toURI()).toAbsolutePath().toString();
-        } catch (Exception e) {
-            return Paths.get("src", "test", "resources", "testdata", "upload.txt")
-                    .toAbsolutePath()
-                    .toString();
-        }
+        Path fallback = Paths.get("src", "test", "resources", "testdata", "upload.txt");
+        return fallback.toAbsolutePath().normalize().toString();
     }
 }

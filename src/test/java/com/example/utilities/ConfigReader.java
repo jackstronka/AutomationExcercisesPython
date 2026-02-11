@@ -29,7 +29,7 @@ public class ConfigReader {
      * 1) System property (e.g. -Dbrowser=firefox)
      * 2) config.properties
      *
-     * @throws IllegalArgumentException jeśli klucz nie istnieje lub wartość jest pusta
+     * @throws IllegalArgumentException if key does not exist or value is empty
      */
     public static String get(String key) {
         String value = System.getProperty(key, properties.getProperty(key));
@@ -42,7 +42,7 @@ public class ConfigReader {
     }
 
     /**
-     * Overload z domyślną wartością – gdy klucz nie istnieje lub wartość jest pusta, zwraca defaultValue.
+     * Overload with default value – when key does not exist or value is empty, returns defaultValue.
      */
     public static String get(String key, String defaultValue) {
         String value = System.getProperty(key, properties.getProperty(key, defaultValue));

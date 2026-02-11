@@ -10,35 +10,35 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 /**
- * Page Object dla strony /login – zawiera formularz logowania oraz sekcję rejestracji nowego użytkownika.
+ * Page Object for /login page – contains login form and new user registration section.
  */
 public class LoginPage extends BasePage {
 
-    // ===== Lokatory sekcji "New User Signup!" (data-qa z HTML-a) =====
+    // ===== Selectors for "New User Signup!" section (data-qa from HTML) =====
     private final By newUserNameInput = By.cssSelector("[data-qa='signup-name']");
     private final By newUserEmailInput = By.cssSelector("[data-qa='signup-email']");
     private final By signupButton = By.cssSelector("[data-qa='signup-button']");
     private final By newUserSignupSection = By.xpath("//*[contains(text(),'New User Signup!')]");
 
-    // Komunikat gdy email już istnieje: <p style="color: red;">Email Address already exist!</p>
+    // Message when email already exists: <p style="color: red;">Email Address already exist!</p>
     private final By emailAlreadyExistsError = By.xpath("//p[contains(text(),'Email Address already exist!')]");
 
-    // Komunikat przy błędnym logowaniu: "Your email or password is incorrect!"
+    // Message on incorrect login: "Your email or password is incorrect!"
     private final By loginIncorrectError = By.xpath("//p[contains(text(),'Your email or password is incorrect!')]");
 
-    // ===== Lokatory sekcji "Login to your account" (data-qa z HTML-a) =====
+    // ===== Selectors for "Login to your account" section (data-qa from HTML) =====
     private final By loginToYourAccountSection = By.xpath("//*[contains(text(),'Login to your account')]");
     private final By loginEmailInput = By.cssSelector("[data-qa='login-email']");
     private final By loginPasswordInput = By.cssSelector("[data-qa='login-password']");
     private final By loginButton = By.cssSelector("[data-qa='login-button']");
 
-    // Lokator dla informacji typu "Logged in as <user>" w headerze
+    // Selector for "Logged in as <user>" info in header
     private final By loggedInAsLabel =
             By.xpath("//*[contains(.,'Logged in as') or contains(.,'LOGGED IN AS')]");
 
-    // Lokatory przycisków związanych z kontem
+    // Account-related button selectors (href works on /payment_done etc.)
     private final By deleteAccountButton =
-            By.xpath("//a[contains(.,'Delete Account') or contains(.,'DELETE ACCOUNT')]");
+            By.cssSelector("a[href='/delete_account']");
 
     private final By accountDeletedMessage =
             By.xpath("//*[contains(.,'Account Deleted') or contains(.,'ACCOUNT DELETED')]");
@@ -72,7 +72,13 @@ public class LoginPage extends BasePage {
     }
 
     public boolean isLoginIncorrectErrorVisible() {
-        return isElementPresent(loginIncorrectError);
+        try {
+            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            shortWait.until(ExpectedConditions.presenceOfElementLocated(loginIncorrectError));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean isLoginToYourAccountSectionVisible() {

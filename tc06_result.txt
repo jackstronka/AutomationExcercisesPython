@@ -1,0 +1,58 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< com.example:automation-template >-------------------
+[INFO] Building Automation Template 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ automation-template ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\JavaAutomation\AutomationExcercisesCucumber\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ automation-template ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ automation-template ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 13 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ automation-template ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.3:test (default-test) @ automation-template ---
+[INFO] Using auto detected provider org.apache.maven.surefire.testng.TestNGProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.example.runner.CucumberTestRunner
+
+@tc06 @regression @contact
+Scenario: TC06 - Contact Us Form                                                      # src/test/resources/features/TC06_ContactUsForm.feature:11
+mvn : [main] INFO io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 144.0.7559.133 (resolved driver for Ch
+rome 144)
+At C:\Users\jacks\AppData\Local\Temp\ps-script-ba98ceb5-23f7-4e30-af56-41c062f99b5b.ps1:82 char:52
++ ... esCucumber; mvn test -Pcucumber "-Dcucumber.filter.tags=@tc06" 2>&1 | ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([main] INFO io....for Chrome 144):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[main] INFO io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\jacks\.cache\sele
+nium\chromedriver\win64\144.0.7559.133\chromedriver.exe
+lut 11, 2026 11:30:50 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 144
+lut 11, 2026 11:30:50 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$4
+WARNING: Unable to find version of CDP to use for 144.0.7559.133. You may need to include a dependency on a specific ve
+rsion of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.30.0` where the version ("
+v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same
+ as Selenium's.
+  Given I open the browser                                                            # com.example.steps.CommonSteps.iOpenTheBrowser()
+  And I navigate to the home page                                                     # com.example.steps.CommonSteps.iNavigateToTheHomePage()
+  Then I should see the home page                                                     # com.example.steps.CommonSteps.iShouldSeeTheHomePage()
+  When I click on "Contact Us" button                                                 # com.example.steps.CommonSteps.iClickOnButton(java.lang.String)
+  Then I should see "GET IN TOUCH" section                                            # com.example.steps.CommonSteps.iShouldSeeSection(java.lang.String)
+  When I fill in the contact form                                                     # com.example.steps.ContactUsSteps.iFillInTheContactForm(io.cucumber.datatable.DataTable)
+    | name         | email           | subject      | message                 |
+    | Jan Kowalski | jan@example.com | Test subject | This is a test message. |
+  And I upload a file                                                                 # com.example.steps.ContactUsSteps.iUploadAFile()
+  And I click the Submit button on contact form                                       # com.example.steps.ContactUsSteps.iClickTheSubmitButtonOnContactForm()

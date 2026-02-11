@@ -28,7 +28,8 @@ public class ProductsPage extends BasePage {
     }
 
     public void clickFirstViewProduct() {
-        click(firstViewProductLink);
+        scrollIntoView(firstViewProductLink);
+        clickViaJavaScript(firstViewProductLink);
     }
 
     public void searchProduct(String searchTerm) {

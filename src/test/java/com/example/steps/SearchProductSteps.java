@@ -19,7 +19,7 @@ public class SearchProductSteps {
         ProductsPage productsPage = ScenarioContext.get(ScenarioContext.PRODUCTS_PAGE);
         Assert.assertTrue(
                 productsPage.areSearchResultsContaining(expectedProductName),
-                "Wyniki wyszukiwania powinny zawierać: " + expectedProductName
+                "Search results should contain: " + expectedProductName
         );
     }
 }

@@ -1,12 +1,14 @@
-@ignore
+@tc07 @regression @products
 Feature: Verify All Products and product detail page
 
   # TC07: Verify All Products and product detail page
 
-  Scenario: TC07 - Verify All Products and product detail page
+  Background:
     Given I open the browser
     And I navigate to the home page
     Then I should see the home page
+
+  Scenario: TC07 - Verify All Products and product detail page
     When I click on Products button
     Then I should be navigated to the All Products page
     And the products list is visible

@@ -10,6 +10,19 @@ import io.cucumber.java.en.When;
 
 public class RegistrationSteps {
 
+    @When("I click the Signup button on signup form")
+    public void iClickTheSignupButtonOnSignupForm() {
+        LoginPage loginPage = ScenarioContext.get(ScenarioContext.LOGIN_PAGE);
+        loginPage.clickSignupButton();
+        ScenarioContext.put(ScenarioContext.SIGNUP_PAGE, new SignupPage(Hooks.driver));
+    }
+
+    @When("I click Create Account on signup form")
+    public void iClickCreateAccountOnSignupForm() {
+        SignupPage signupPage = ScenarioContext.get(ScenarioContext.SIGNUP_PAGE);
+        signupPage.clickCreateAccount();
+    }
+
     @When("I enter a new user name {string} and email {string}")
     public void iEnterANewUserNameAndEmail(String name, String email) {
         ScenarioContext.put(ScenarioContext.LAST_ENTERED_NAME, name);

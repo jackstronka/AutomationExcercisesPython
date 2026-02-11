@@ -2,9 +2,10 @@ package com.example.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
- * Page Object dla strony szczegółów produktu (np. /product_details/1).
+ * Page Object for product detail page (e.g. /product_details/1).
  */
 public class ProductDetailPage extends BasePage {
 
@@ -14,13 +15,19 @@ public class ProductDetailPage extends BasePage {
     private final By productAvailability = By.xpath("//div[contains(@class,'product-information') or contains(@class,'product-info')]//*[contains(.,'Availability:')]");
     private final By productCondition = By.xpath("//div[contains(@class,'product-information') or contains(@class,'product-info')]//*[contains(.,'Condition:')]");
     private final By productBrand = By.xpath("//div[contains(@class,'product-information') or contains(@class,'product-info')]//*[contains(.,'Brand:')]");
+    private final By addToCartButton = By.cssSelector("button.btn.btn-default.cart");
+    private final By viewCartLinkInModal = By.cssSelector(".modal a[href='/view_cart'], .modal-content a[href='/view_cart']");
 
     public ProductDetailPage(WebDriver driver) {
         super(driver);
     }
 
     public boolean isProductNameVisible() {
-        return isElementPresent(productName);
+        try {
+            return getElement(productName).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean isProductCategoryVisible() {
@@ -50,5 +57,14 @@ public class ProductDetailPage extends BasePage {
                 && isProductAvailabilityVisible()
                 && isProductConditionVisible()
                 && isProductBrandVisible();
+    }
+
+    public void clickAddToCart() {
+        click(addToCartButton);
+    }
+
+    public void clickViewCartInModal() {
+        wait.until(ExpectedConditions.elementToBeClickable(viewCartLinkInModal));
+        click(viewCartLinkInModal);
     }
 }

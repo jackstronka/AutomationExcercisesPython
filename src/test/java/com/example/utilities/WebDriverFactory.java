@@ -7,12 +7,16 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.Dimension;
+
+import java.io.File;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class WebDriverFactory {
 
-    // ⭐ METODA DOCELOWA – TEMPLATE
+    // Main entry point – template
     public static WebDriver create() {
         String browser = ConfigReader.get("browser");
         boolean headless = Boolean.parseBoolean(ConfigReader.get("headless", "false"));
@@ -23,7 +27,7 @@ public class WebDriverFactory {
         return create(browser, headless, maximize, width, height);
     }
 
-    // ⭐ METODA TECHNICZNA
+    // Technical implementation
     private static WebDriver create(String browser, boolean headless, boolean maximize, int width, int height) {
         WebDriver driver;
 
@@ -31,6 +35,16 @@ public class WebDriverFactory {
             case "chrome":
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
+                String downloadPath = new File(System.getProperty("user.dir"), "target/downloads").getAbsolutePath();
+                new File(downloadPath).mkdirs();
+                // Disable password save / autofill so it does not block buttons (e.g. Place Order)
+                Map<String, Object> prefs = new HashMap<>();
+                prefs.put("credentials_enable_service", false);
+                prefs.put("profile.password_manager_enabled", false);
+                prefs.put("autofill.profile_enabled", false);
+                prefs.put("autofill.credit_card_enabled", false);
+                prefs.put("download.default_directory", downloadPath);
+                chromeOptions.setExperimentalOption("prefs", prefs);
                 if (headless) {
                     chromeOptions.addArguments("--headless");
                 }
@@ -40,6 +54,11 @@ public class WebDriverFactory {
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
+                String ffDownloadPath = new File(System.getProperty("user.dir"), "target/downloads").getAbsolutePath();
+                new File(ffDownloadPath).mkdirs();
+                firefoxOptions.addPreference("browser.download.folderList", 2);
+                firefoxOptions.addPreference("browser.download.dir", ffDownloadPath);
+                firefoxOptions.addPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf,text/plain,application/octet-stream");
                 if (headless) {
                     firefoxOptions.addArguments("--headless");
                 }

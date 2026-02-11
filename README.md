@@ -1,10 +1,10 @@
 ## Automation Exercises Cucumber – E2E
 
-Projekt automatyzacji testów UI dla [automationexercise.com](https://automationexercise.com) – **Selenium WebDriver**, **Cucumber** (BDD), **TestNG**.
+UI test automation project for [automationexercise.com](https://automationexercise.com) – **Selenium WebDriver**, **Cucumber** (BDD), **TestNG**.
 
 ---
 
-## 📁 Struktura projektu
+## 📁 Project structure
 
 ```text
 AutomationExcercisesCucumber/
@@ -16,6 +16,8 @@ AutomationExcercisesCucumber/
         │   └── com/example/
         │       ├── context/
         │       │   └── ScenarioContext.java
+        │       ├── hooks/
+        │       │   └── Hooks.java
         │       ├── pages/
         │       │   ├── BasePage.java
         │       │   ├── HomePage.java
@@ -24,9 +26,10 @@ AutomationExcercisesCucumber/
         │       │   ├── AccountCreatedPage.java
         │       │   ├── ContactUsPage.java
         │       │   ├── ProductsPage.java
-        │       │   └── ProductDetailPage.java
-        │       ├── hooks/
-        │       │   └── Hooks.java
+        │       │   ├── ProductDetailPage.java
+        │       │   ├── CartPage.java
+        │       │   ├── CheckoutPage.java
+        │       │   └── OrderSuccessPage.java
         │       ├── steps/
         │       │   ├── CommonSteps.java
         │       │   ├── RegistrationSteps.java
@@ -34,7 +37,9 @@ AutomationExcercisesCucumber/
         │       │   ├── AccountSteps.java
         │       │   ├── ContactUsSteps.java
         │       │   ├── ProductsSteps.java
-        │       │   └── SearchProductSteps.java
+        │       │   ├── ProductQuantitySteps.java
+        │       │   ├── SearchProductSteps.java
+        │       │   └── CheckoutSteps.java
         │       ├── runner/
         │       │   └── CucumberTestRunner.java
         │       └── utilities/
@@ -52,123 +57,190 @@ AutomationExcercisesCucumber/
                 ├── TC05_RegisterUserExistingEmail.feature
                 ├── TC06_ContactUsForm.feature
                 ├── TC07_VerifyAllProducts.feature
-                └── TC08_SearchProduct.feature
+                ├── TC08_SearchProduct.feature
+                ├── TC09_VerifyProductQuantityInCart.feature
+                ├── TC10_PlaceOrderRegisterWhileCheckout.feature
+                └── TC11_DownloadInvoiceAfterPurchase.feature
 ```
 
-### Opis katalogów
+### Directory description
 
-- **context** – `ScenarioContext` – współdzielony stan między klasami stepów w ramach scenariusza
-- **pages** – Page Objects (BasePage + strony aplikacji)
-- **hooks** – Cucumber hooks (`@Before`, `@After`, `@BeforeStep`) – setup przeglądarki, overlay cookies/reklam
-- **steps** – definicje kroków Gherkin (`Given` / `When` / `Then`)
-- **runner** – `CucumberTestRunner` uruchamiany przez profil Maven `cucumber`
+- **context** – `ScenarioContext` – shared state between step classes within a scenario
+- **pages** – Page Objects (BasePage + application pages)
+- **hooks** – Cucumber hooks (`@Before`, `@After`, `@BeforeStep`) – browser setup, cookie/ad overlays
+- **steps** – Gherkin step definitions (`Given` / `When` / `Then`)
+- **runner** – `CucumberTestRunner` executed via Maven profile `cucumber`
 - **utilities** – `WebDriverFactory`, `ConfigReader`
-- **resources/config.properties** – konfiguracja środowiska
-- **resources/features** – pliki `.feature` Cucumber
+- **resources/config.properties** – environment configuration
+- **resources/features** – Cucumber `.feature` files
 
 ---
 
-## ✅ Wymagania
+## ✅ Requirements
 
-- Java **17+** (projekt na **JDK 21**)
+- Java **17+** (project uses **JDK 21**)
 - Maven **3+**
-- Chrome i/lub Firefox
+- Chrome and/or Firefox
 
 ---
 
-## ⚙️ Konfiguracja – `config.properties`
+## ⚙️ Configuration – `config.properties`
 
-### Kluczowe właściwości
+### Key properties
 
 ```properties
 baseUrl=https://automationexercise.com
-browser=firefox
+browser=chrome
 headless=false
 windowWidth=1200
 windowHeight=800
 maximizeWindow=true
+implicitWait=0
 explicitWait=10
 pageLoadTimeout=30
+orderSuccessWaitTimeout=15
 ```
 
-Wartości można nadpisać z linii poleceń przez `-D`:
+Values can be overridden from command line via `-D`:
 
 ```bash
 mvn test -Pcucumber -Dbrowser=firefox -Dheadless=true
 ```
 
-### Kolejność (`ConfigReader`)
+### Priority order (`ConfigReader`)
 
-1. System property (np. `-Dbrowser=firefox`)
+1. System property (e.g. `-Dbrowser=firefox`)
 2. `config.properties`
 
 ---
 
-## ▶️ Uruchamianie testów
+## ▶️ Running tests
+
+### All tests
 
 ```bash
 mvn test -Pcucumber
 ```
 
-Z opcjami:
+With options:
 
 ```bash
 mvn test -Pcucumber -Dbrowser=chrome -Dheadless=false
 ```
 
-### Raporty
+### Running individual tests
+
+Each test scenario (TC) has its own tag in format `@tcXX` (e.g. `@tc01`, `@tc02`, ..., `@tc11`), allowing easy single-test execution.
+
+**1. By feature file** – run only a selected `.feature` file:
+
+```bash
+mvn test -Pcucumber -Dcucumber.features="src/test/resources/features/TC01_RegisterUser.feature"
+```
+
+Other file examples:
+
+```bash
+mvn test -Pcucumber -Dcucumber.features="src/test/resources/features/TC02_LoginUser.feature"
+mvn test -Pcucumber -Dcucumber.features="src/test/resources/features/TC10_PlaceOrderRegisterWhileCheckout.feature"
+```
+
+**2. By tag** – run only scenarios with a given TC tag (e.g. `@tc01`, `@tc10`):
+
+```bash
+mvn test -Pcucumber -Dcucumber.filter.tags="@tc01"
+```
+
+To run one tag while still excluding `@ignore` scenarios:
+
+```bash
+mvn test -Pcucumber -Dcucumber.filter.tags="not @ignore and @tc01"
+```
+
+**3. From IDE (IntelliJ / VS Code)**  
+- Right-click the `.feature` file → **Run Feature** (entire file)  
+- Or in a specific scenario → **Run Scenario** (only that scenario)
+
+### Test suites by tags
+
+- **Smoke tests** – quick, critical suite:
+
+```bash
+mvn test -Pcucumber "-Dcucumber.filter.tags=@smoke"
+```
+
+- **Full regression** – all regression tests (excluding `@ignore`):
+
+```bash
+mvn test -Pcucumber "-Dcucumber.filter.tags=@regression and not @ignore"
+```
+
+- **Functional areas** – e.g. checkout only:
+
+```bash
+mvn test -Pcucumber "-Dcucumber.filter.tags=@checkout and not @ignore"
+```
+
+### Reports
 
 - `target/cucumber-reports.html`
 - `target/cucumber-report.json`
 
 ---
 
-## 🧠 Działanie frameworka
+## 🧠 Framework architecture
 
 ### WebDriverFactory
 
-- Odczytuje `browser`, `headless`, `maximizeWindow`, `windowWidth`, `windowHeight` z konfiguracji
-- Tworzy WebDriver (Chrome / Firefox)
-- Gdy `maximizeWindow=true`, pomija `setSize` (okno jest maksymalizowane w Hooks)
+- Reads `browser`, `headless`, `maximizeWindow`, `windowWidth`, `windowHeight` from config
+- Creates WebDriver (Chrome / Firefox)
+- When `maximizeWindow=true`, skips `setSize` (window is maximized in Hooks)
 
 ### ConfigReader
 
-- Ładuje `config.properties` z classpath
-- Metody: `get(key)`, `get(key, defaultValue)`
-- Walidacja: `get(key)` rzuca wyjątek, gdy klucz brakuje lub wartość jest pusta
+- Loads `config.properties` from classpath
+- Methods: `get(key)`, `get(key, defaultValue)`
+- Validation: `get(key)` throws when key is missing or value is empty
 
 ### Hooks
 
 **@Before**
-- Tworzy WebDriver (współdzielony między scenariuszami)
-- Maksymalizuje okno (jeśli `maximizeWindow=true`)
-- Otwiera `baseUrl`
-- Zamyka overlay cookies, usuwa reklamy, czyści `#google_vignette`
+- Creates WebDriver (shared between scenarios)
+- Maximizes window (if `maximizeWindow=true`)
+- Opens `baseUrl`
+- Dismisses cookie overlay, removes ads, clears `#google_vignette`
 
 **@After**
-- Nie zamyka przeglądarki (współdzielona)
-- Zamykanie w shutdown hook po zakończeniu wszystkich testów
+- Does not close browser (shared)
+- Closing in shutdown hook after all tests complete
 
 **@BeforeStep**
-- Usuwa overlaye reklam przed każdym krokiem
+- Removes ad overlays before each step
 
 ### BasePage
 
-Wspólne metody: `click`, `clickViaJavaScript`, `writeText`, `readText`, `getElement`, `isElementPresent`, `selectByValueViaJavaScript`, `selectByVisibleTextViaJavaScript`.
+Shared methods: `click`, `clickViaJavaScript`, `writeText`, `readText`, `getElement`, `isElementPresent`, `selectByValueViaJavaScript`, `selectByVisibleTextViaJavaScript`.
 
 ### Feature files (Test Cases)
 
-| TC | Opis |
-|----|------|
-| **TC01** | Register User |
-| **TC02** | Login User (correct credentials) |
-| **TC03** | Login User (incorrect credentials) |
-| **TC04** | Logout User |
-| **TC05** | Register User with existing email |
-| **TC06** | Contact Us Form |
-| **TC07** | Verify All Products and product detail page |
-| **TC08** | Search Product |
+| TC    | Tag    | Description |
+|-------|--------|-------------|
+| **TC01** | `@tc01` | Register User |
+| **TC02** | `@tc02` | Login User (correct credentials) |
+| **TC03** | `@tc03` | Login User (incorrect credentials) |
+| **TC04** | `@tc04` | Logout User |
+| **TC05** | `@tc05` | Register User with existing email |
+| **TC06** | `@tc06` | Contact Us Form |
+| **TC07** | `@tc07` | Verify All Products and product detail page |
+| **TC08** | `@tc08` | Search Product |
+| **TC09** | `@tc09` | Verify Product quantity in Cart |
+| **TC10** | `@tc10` | Place Order: Register while Checkout |
+| **TC11** | `@tc11` | Download Invoice after purchase order |
 
-Scenariusze z tagiem `@ignore` są pomijane przy domyślnym uruchomieniu (`tags = "not @ignore"`).
+Scenarios with `@ignore` tag are skipped on default run (`tags = "not @ignore"`). Use `@tcXX` tags to run individual TCs, e.g.:
+
+```bash
+mvn test -Pcucumber -Dcucumber.filter.tags="@tc07"
+```
 
 ---
