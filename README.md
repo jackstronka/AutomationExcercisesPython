@@ -232,8 +232,9 @@ The Allure report is published automatically on each push to `main` and on the w
 
 1. Repo **Settings** → **Pages**
 2. Under **Build and deployment**, set **Source** to **GitHub Actions**
-3. After the next push to `main` or scheduled run, the report will be available at:  
-   `https://<username>.github.io/<repo-name>/`
+3. After the next push to `main` or scheduled run, the report will be available at:
+
+   **https://jackstronka.github.io/AutomationExcercisesCucumber/**
 
 Status badge (optional; replace `jackstronka` with your GitHub username):
 
@@ -254,7 +255,7 @@ Status badge (optional; replace `jackstronka` with your GitHub username):
 - `mvn allure:report -Pcucumber` – generate report to `target/allure-report/` (run after `mvn test`)
 - `mvn allure:serve -Pcucumber` – run tests, generate report, open in browser (all-in-one)
 
-**GitHub Pages:** CI deploys the Allure report on push to `main` and on schedule (see [CI section](#-github-actions-ci)); enable **Settings → Pages → Source: GitHub Actions** once.
+**GitHub Pages:** CI deploys the Allure report on push to `main` and on schedule. Report URL: **https://jackstronka.github.io/AutomationExcercisesCucumber/** (enable **Settings → Pages → Source: GitHub Actions** once).
 
 ---
 
