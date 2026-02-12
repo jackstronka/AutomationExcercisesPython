@@ -223,7 +223,7 @@ Tests run automatically on push and pull requests to `main`:
 - **Timeout:** 30 minutes
 - **Artifacts:** `test-reports` (surefire, cucumber), `allure-report-pages` (Allure for GitHub Pages)
 - **GitHub Pages:** The Allure report is deployed on **push to main** and on **schedule**. Requires **Settings → Pages → Source: GitHub Actions** and **Environments → github-pages**. See below.
-- **Cache:** Maven dependencies (`setup-java`), Allure report history (for trend charts between runs)
+- **Cache:** Maven dependencies (`setup-java`). Allure **history** for trend charts is downloaded from the current GitHub Pages report (no cache; survives workflow/cache cleanup)
 
 Workflow file: `.github/workflows/ci.yml`
 
@@ -258,7 +258,7 @@ Status badge (optional; replace `jackstronka` with your GitHub username):
 - `mvn allure:report -Pcucumber` – generate report to `target/allure-report/` (run after `mvn test`)
 - `mvn allure:serve -Pcucumber` – run tests, generate report, open in browser (all-in-one)
 
-**GitHub Pages:** CI deploys the Allure report on push to `main` and on schedule. Report URL: **https://jackstronka.github.io/AutomationExcercisesCucumber/** (enable **Settings → Pages → Source: GitHub Actions** and **Environments → github-pages** once). **Trends:** Allure history is cached between runs so the report shows trend charts.
+**GitHub Pages:** CI deploys the Allure report on push to `main` and on schedule. Report URL: **https://jackstronka.github.io/AutomationExcercisesCucumber/** (enable **Settings → Pages → Source: GitHub Actions** and **Environments → github-pages** once). **Trends:** Before generating the report, the workflow downloads the `history` folder from the current Pages site so trend charts are preserved across runs (no cache dependency).
 
 ---
 

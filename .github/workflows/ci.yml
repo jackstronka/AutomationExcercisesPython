@@ -40,12 +40,17 @@ jobs:
 
       - name: Prepare for Allure history (trends)
         run: mkdir -p target/allure-report
-      - name: Restore Allure history
-        uses: actions/cache/restore@v4
-        id: allure-history-restore
-        with:
-          path: target/allure-report/history
-          key: allure-history-${{ github.ref }}
+      - name: Download Allure history from GitHub Pages
+        continue-on-error: true
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          BASE="https://${GITHUB_REPOSITORY_OWNER}.github.io/${REPO_NAME}"
+          wget -q -r -np -nH -e robots=off -P target/allure-report-dl "${BASE}/history/" || true
+          SRC="target/allure-report-dl/${GITHUB_REPOSITORY_OWNER}.github.io/${REPO_NAME}/history"
+          if [ -d "$SRC" ]; then
+            mv "$SRC" target/allure-report/history
+          fi
+          rm -rf target/allure-report-dl 2>/dev/null || true
 
       - name: Run Smoke tests (Pull Request)
         if: github.event_name == 'pull_request'
@@ -63,13 +68,6 @@ jobs:
         id: generate-allure
         if: always()
         run: mvn allure:report -Pcucumber -B
-
-      - name: Save Allure history (for next run trends)
-        if: always() && steps.generate-allure.outcome == 'success'
-        uses: actions/cache/save@v4
-        with:
-          path: target/allure-report/history
-          key: allure-history-${{ github.ref }}
 
       - name: Upload test reports
         if: always()
