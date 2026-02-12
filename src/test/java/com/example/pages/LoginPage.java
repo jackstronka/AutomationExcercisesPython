@@ -1,5 +1,7 @@
 package com.example.pages;
 
+import com.example.utilities.ConfigReader;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -52,13 +54,15 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    // ===== Akcje sekcji "New User Signup!" =====
+    // ===== "New User Signup!" section actions =====
 
+    @Step("Enter new user name '{0}' and email '{1}'")
     public void enterNewUserNameAndEmail(String name, String email) {
         writeText(newUserNameInput, name);
         writeText(newUserEmailInput, email);
     }
 
+    @Step("Click Signup button")
     public void clickSignupButton() {
         click(signupButton);
     }
@@ -73,7 +77,8 @@ public class LoginPage extends BasePage {
 
     public boolean isLoginIncorrectErrorVisible() {
         try {
-            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            long timeout = Long.parseLong(ConfigReader.get("explicitWait", "10"));
+            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
             shortWait.until(ExpectedConditions.presenceOfElementLocated(loginIncorrectError));
             return true;
         } catch (Exception e) {
@@ -85,15 +90,18 @@ public class LoginPage extends BasePage {
         return isElementPresent(loginToYourAccountSection);
     }
 
+    @Step("Click Logout")
     public void clickLogout() {
         click(logoutLink);
     }
 
+    @Step("Enter login credentials")
     public void enterLoginCredentials(String email, String password) {
         writeText(loginEmailInput, email);
         writeText(loginPasswordInput, password);
     }
 
+    @Step("Click Login button")
     public void clickLoginButton() {
         click(loginButton);
     }
@@ -107,13 +115,15 @@ public class LoginPage extends BasePage {
         }
     }
 
+    @Step("Click Delete Account")
     public void clickDeleteAccount() {
         clickViaJavaScript(deleteAccountButton);
     }
 
     public boolean isAccountDeletedMessageVisible() {
         try {
-            WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            long timeout = Long.parseLong(ConfigReader.get("accountDeletedWaitTimeout", "15"));
+            WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
             WebElement el = longWait.until(ExpectedConditions.presenceOfElementLocated(accountDeletedMessage));
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", el);
             longWait.until(ExpectedConditions.visibilityOf(el));
@@ -123,6 +133,7 @@ public class LoginPage extends BasePage {
         }
     }
 
+    @Step("Click Continue after account deleted")
     public void clickContinueAfterDelete() {
         clickViaJavaScript(continueButtonAfterDelete);
     }

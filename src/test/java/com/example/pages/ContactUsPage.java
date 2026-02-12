@@ -1,6 +1,7 @@
 package com.example.pages;
 
 import com.example.utilities.ConfigReader;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
@@ -17,7 +18,6 @@ import java.time.Duration;
  * Page Object for /contact_us page – Contact Us form.
  */
 public class ContactUsPage extends BasePage {
-
     private final By getInTouchHeading = By.xpath("//h2[contains(text(),'Get In Touch')]");
     private final By nameInput = By.cssSelector("[data-qa='name']");
     private final By emailInput = By.cssSelector("[data-qa='email']");
@@ -40,6 +40,7 @@ public class ContactUsPage extends BasePage {
         return isElementPresent(getInTouchHeading);
     }
 
+    @Step("Fill contact form")
     public void fillContactForm(String name, String email, String subject, String message) {
         writeText(nameInput, name);
         writeText(emailInput, email);
@@ -51,6 +52,7 @@ public class ContactUsPage extends BasePage {
      * Uploads file via the file input. If the input is hidden (common for styled file inputs),
      * makes it visible temporarily so sendKeys works reliably.
      */
+    @Step("Upload file")
     public void uploadFile(String absolutePath) {
         WebElement input = getElement(uploadFileInput);
         scrollIntoView(uploadFileInput);
@@ -61,10 +63,11 @@ public class ContactUsPage extends BasePage {
     }
 
     /**
-     * Submits the contact form. Ukrywa overlays, ustawia przycisk na wierzch, klika.
-     * UnhandledAlertException = submit zadziałał, alert się pojawił – akceptujemy go.
-     * Zawsze po kliku próbujemy acceptAlertIfPresent – komunikat sukcesu jest w alercie.
+     * Submits the contact form. Hides overlays, brings button to front, clicks.
+     * UnhandledAlertException = submit worked, alert appeared – we accept it.
+     * Always try acceptAlertIfPresent after click – success message may be in alert.
      */
+    @Step("Click Submit on contact form")
     public void clickSubmit() {
         scrollIntoView(submitButton);
         dismissOverlaysThatBlockForm();
@@ -81,7 +84,7 @@ public class ContactUsPage extends BasePage {
         } catch (ElementClickInterceptedException e) {
             new Actions(driver).moveToElement(btn).click().perform();
         } catch (UnhandledAlertException e) {
-            // Alert się pojawił – akceptujemy go poniżej
+            // Alert appeared – accept it below
         }
         acceptAlertIfPresent();
     }
@@ -99,12 +102,12 @@ public class ContactUsPage extends BasePage {
     }
 
     /**
-     * Akceptuje alert jeśli jest. Gdy już zaakceptowany w clickSubmit – zwraca od razu (bez czekania).
-     * Czeka tylko gdy alert faktycznie jest (pojawia się od razu po Submit).
+     * Accepts alert if present. When already accepted in clickSubmit – returns immediately (no wait).
+     * Waits only when alert actually exists (appears right after Submit).
      */
     public void acceptAlertIfPresent() {
         if (successMessageSeenInAlert) {
-            return; // Już zaakceptowano w clickSubmit – od razu dalej
+            return; // Already accepted in clickSubmit – proceed immediately
         }
         try {
             int timeout = Integer.parseInt(ConfigReader.get("alertWaitTimeout", "2"));
@@ -112,12 +115,12 @@ public class ContactUsPage extends BasePage {
             alertWait.until(ExpectedConditions.alertIsPresent());
             String alertText = driver.switchTo().alert().getText();
             driver.switchTo().alert().accept();
-            // Komunikat sukcesu jest w alercie – po zatwierdzeniu ten tekst wystarczy
+            // Success message is in alert – after accept this text is sufficient
             if (alertText != null && !alertText.isBlank()) {
                 successMessageSeenInAlert = true;
             }
         } catch (Exception ignored) {
-            // Brak alertu – komunikat może być na stronie
+            // No alert – message may be on page
         }
     }
 
@@ -138,7 +141,7 @@ public class ContactUsPage extends BasePage {
         }
     }
 
-    /** Clicks Home – po sukcesie kontakt może użyć nav lub przycisku w sekcji. */
+    @Step("Click Home")
     public void clickHome() {
         if (driver.findElements(homeLink).isEmpty()) {
             clickViaJavaScript(homeLinkNav);

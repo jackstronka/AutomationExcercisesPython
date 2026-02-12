@@ -1,5 +1,6 @@
 package com.example.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -30,10 +31,12 @@ public class CheckoutPage extends BasePage {
         return isElementPresent(addressDetailsSection) && isElementPresent(reviewYourOrderSection);
     }
 
+    @Step("Enter order comment: {0}")
     public void enterOrderComment(String comment) {
         writeText(commentTextarea, comment);
     }
 
+    @Step("Fill payment details")
     public void fillPaymentDetails(String nameOnCard,
                                    String cardNumber,
                                    String cvc,
@@ -47,11 +50,12 @@ public class CheckoutPage extends BasePage {
         writeText(expiryYearInput, expiryYear);
     }
 
-    /** Click via JS – browser bar (e.g. "Save password?") may block the button. */
+    @Step("Click Place Order")
     public void clickPlaceOrder() {
         clickViaJavaScript(placeOrderButton);
     }
 
+    @Step("Click Pay and Confirm Order")
     public void clickPayAndConfirmOrder() {
         click(payAndConfirmOrderButton);
     }

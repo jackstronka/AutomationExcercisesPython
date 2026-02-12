@@ -1,5 +1,6 @@
 package com.example.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -60,14 +61,17 @@ public class ProductDetailPage extends BasePage {
                 && isProductBrandVisible();
     }
 
+    @Step("Set quantity to {0}")
     public void setQuantity(int quantity) {
         writeText(quantityInput, String.valueOf(quantity));
     }
 
+    @Step("Click Add to cart")
     public void clickAddToCart() {
         click(addToCartButton);
     }
 
+    @Step("Click View Cart in modal")
     public void clickViewCartInModal() {
         wait.until(ExpectedConditions.elementToBeClickable(viewCartLinkInModal));
         click(viewCartLinkInModal);

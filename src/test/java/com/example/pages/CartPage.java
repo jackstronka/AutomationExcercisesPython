@@ -1,5 +1,6 @@
 package com.example.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,6 +16,8 @@ public class CartPage extends BasePage {
     private final By firstCartProductRow = By.cssSelector("tr[id^='product-']");
     // Proceed To Checkout button
     private final By proceedToCheckoutButton = By.cssSelector("a[href='/checkout'], a.check_out");
+    // Register / Login link in checkout modal (appears when cart has items, user not logged in)
+    private final By registerLoginInModal = By.cssSelector(".modal-content a[href='/login']");
     // Quantity cell – may be button/span/text in different implementations
     private final By quantityCellInsideFirstRow = By.cssSelector(
             "tr[id^='product-'] td.cart_quantity, " +
@@ -39,8 +42,14 @@ public class CartPage extends BasePage {
         return isElementPresent(firstCartProductRow);
     }
 
+    @Step("Click Proceed To Checkout")
     public void clickProceedToCheckout() {
         click(proceedToCheckoutButton);
+    }
+
+    @Step("Click Register / Login in checkout modal")
+    public void clickRegisterLoginInCheckoutModal() {
+        click(registerLoginInModal);
     }
 
     public int getFirstProductQuantity() {

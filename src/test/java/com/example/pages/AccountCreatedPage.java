@@ -1,12 +1,13 @@
 package com.example.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
- * Page Object dla strony /account_created – potwierdzenie utworzenia konta.
- * Zawiera: Account Created!, Congratulations message oraz przycisk Continue.
+ * Page Object for /account_created – account creation confirmation.
+ * Contains: Account Created!, congratulations message and Continue button.
  */
 public class AccountCreatedPage extends BasePage {
 
@@ -32,6 +33,7 @@ public class AccountCreatedPage extends BasePage {
         }
     }
 
+    @Step("Click Continue after account created")
     public void clickContinue() {
         clickViaJavaScript(continueButton);
     }

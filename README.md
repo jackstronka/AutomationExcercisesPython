@@ -95,7 +95,7 @@ AutomationExcercisesCucumber/
 ```properties
 baseUrl=https://automationexercise.com
 browser=chrome
-headless=false
+headless=true
 windowWidth=1200
 windowHeight=800
 maximizeWindow=true
@@ -103,6 +103,7 @@ implicitWait=0
 explicitWait=10
 pageLoadTimeout=30
 orderSuccessWaitTimeout=15
+accountDeletedWaitTimeout=15
 alertWaitTimeout=2
 ```
 
@@ -188,8 +189,22 @@ mvn test -Pcucumber "-Dcucumber.filter.tags=@checkout and not @ignore"
 
 ### Reports
 
-- `target/cucumber-reports.html`
-- `target/cucumber-report.json`
+- `target/cucumber-reports.html` – Cucumber HTML report
+- `target/cucumber-report.json` – Cucumber JSON (for integrations)
+- `target/allure-report/` – **Allure** report (interactive, with trends and screenshots on failure)
+
+**Generate Allure report locally:**
+```bash
+mvn test -Pcucumber
+mvn allure:report -Pcucumber
+# Open target/allure-report/index.html in browser
+```
+
+**Or serve interactively:**
+```bash
+mvn allure:serve -Pcucumber
+# Runs tests, generates report, opens in browser
+```
 
 ---
 
@@ -206,15 +221,40 @@ Tests run automatically on push and pull requests to `main`:
 - **Job:** `test` – checkout, JDK 21, Chrome (`browser-actions/setup-chrome`), Cucumber (headless)
 - **Concurrency:** new run on the same branch/PR cancels the previous one (`cancel-in-progress`)
 - **Timeout:** 30 minutes
-- **Artifacts:** `surefire-reports`, `cucumber-reports.html`, `cucumber-report.json` – available for download after each run
+- **Artifacts:** `surefire-reports`, `cucumber-reports.html`, `cucumber-report.json`, `allure-report/` – available for download after each run
+- **GitHub Pages:** The Allure report is deployed to GitHub Pages on **push to main** and on **schedule** (weekly run). See below.
 
 Workflow file: `.github/workflows/ci.yml`
+
+### Viewing Allure report on GitHub Pages
+
+The Allure report is published automatically on each push to `main` and on the weekly schedule. Enable it once:
+
+1. Repo **Settings** → **Pages**
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**
+3. After the next push to `main` or scheduled run, the report will be available at:  
+   `https://<username>.github.io/<repo-name>/`
 
 Status badge (optional; replace `jackstronka` with your GitHub username):
 
 ```markdown
 [![CI](https://github.com/jackstronka/AutomationExcercisesCucumber/actions/workflows/ci.yml/badge.svg)](https://github.com/jackstronka/AutomationExcercisesCucumber/actions)
 ```
+
+---
+
+## 📊 Allure
+
+- **Screenshot on failure** – `Hooks.@After` attaches a screenshot to Allure when a scenario fails (visible in **Tear Down** section of the failed test)
+- **@Step on Page Objects** – public Page Object methods are annotated with `@Step` for detailed step hierarchy in Allure (requires AspectJ agent in Surefire)
+- **Plugin:** `io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm` in `CucumberTestRunner`
+- **Results:** `target/allure-results` (raw)
+
+**Commands:**
+- `mvn allure:report -Pcucumber` – generate report to `target/allure-report/` (run after `mvn test`)
+- `mvn allure:serve -Pcucumber` – run tests, generate report, open in browser (all-in-one)
+
+**GitHub Pages:** CI deploys the Allure report on push to `main` and on schedule (see [CI section](#-github-actions-ci)); enable **Settings → Pages → Source: GitHub Actions** once.
 
 ---
 
@@ -241,8 +281,8 @@ Status badge (optional; replace `jackstronka` with your GitHub username):
 - Dismisses cookie overlay, removes ads, clears `#google_vignette`
 
 **@After**
-- Does not close browser (shared)
-- Closing in shutdown hook after all tests complete
+- If scenario failed – attaches screenshot to Allure
+- Does not close browser (shared); closing in shutdown hook after all tests complete
 
 **@BeforeStep**
 - Removes ad overlays before each step

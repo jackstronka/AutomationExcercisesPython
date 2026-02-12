@@ -6,19 +6,14 @@ import com.example.pages.AccountCreatedPage;
 import com.example.pages.ContactUsPage;
 import com.example.pages.HomePage;
 import com.example.pages.LoginPage;
+import com.example.pages.OrderSuccessPage;
 import com.example.pages.ProductsPage;
 import com.example.pages.SignupPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import com.example.utilities.ConfigReader;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
-import java.time.Duration;
 
 public class CommonSteps {
 
@@ -160,25 +155,11 @@ public class CommonSteps {
                     "ACCOUNT DELETED! should be visible"
             );
         } else if ("Your order has been placed successfully!".equals(messageText)) {
-            boolean successVisible = waitForOrderSuccess();
+            OrderSuccessPage orderSuccessPage = new OrderSuccessPage(Hooks.driver);
             Assert.assertTrue(
-                    successVisible,
+                    orderSuccessPage.waitForOrderSuccessMessageOrPaymentDone(),
                     "\"Your order has been placed successfully!\" message or payment_done page should be visible"
             );
-        }
-    }
-
-    private static boolean waitForOrderSuccess() {
-        int timeout = Integer.parseInt(ConfigReader.get("orderSuccessWaitTimeout", "15"));
-        try {
-            WebDriverWait w = new WebDriverWait(Hooks.driver, Duration.ofSeconds(timeout));
-            w.until(d -> {
-                if (d.getCurrentUrl() != null && d.getCurrentUrl().contains("payment_done")) return true;
-                return !d.findElements(By.xpath("//*[contains(.,'Your order has been placed successfully!')]")).isEmpty();
-            });
-            return true;
-        } catch (TimeoutException ignored) {
-            return Hooks.driver.getCurrentUrl() != null && Hooks.driver.getCurrentUrl().contains("payment_done");
         }
     }
 

@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    # Poniedziałek 9:00 UTC
+    # Monday 9:00 UTC
     - cron: '0 9 * * 1'
 
 concurrency:
@@ -50,6 +50,10 @@ jobs:
         if: github.event_name == 'schedule'
         run: mvn test -Pcucumber -B -Dheadless=true
 
+      - name: Generate Allure report
+        if: always()
+        run: mvn allure:report -Pcucumber -B
+
       - name: Upload test reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -59,4 +63,27 @@ jobs:
             target/surefire-reports/
             target/cucumber-reports.html
             target/cucumber-report.json
+            target/allure-report/
           if-no-files-found: ignore
+
+  deploy-pages:
+    needs: test
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment: github-pages
+    steps:
+      - name: Download test reports
+        uses: actions/download-artifact@v4
+        with:
+          name: test-reports
+      - name: Upload Allure report for GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: target/allure-report
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4

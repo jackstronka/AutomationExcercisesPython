@@ -3,16 +3,20 @@ package com.example.hooks;
 import com.example.context.ScenarioContext;
 import com.example.utilities.ConfigReader;
 import com.example.utilities.WebDriverFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.BeforeStep;
+import io.cucumber.java.Scenario;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
@@ -135,7 +139,16 @@ public class Hooks {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed() && driver != null) {
+            try {
+                byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+                Allure.addAttachment("Screenshot on failure",
+                        new java.io.ByteArrayInputStream(screenshot));
+            } catch (Exception e) {
+                log.warn("Failed to attach screenshot to Allure: {}", e.getMessage());
+            }
+        }
         // Do not close browser – shared between scenarios.
         // Closed in shutdown hook after all tests complete.
     }

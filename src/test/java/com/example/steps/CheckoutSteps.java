@@ -10,7 +10,6 @@ import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 
 import java.util.Map;
@@ -34,9 +33,8 @@ public class CheckoutSteps {
 
     @And("I click Register \\/ Login in checkout modal")
     public void iClickRegisterLoginInCheckoutModal() {
-        // Modal on /view_cart with Register / Login link
-        Hooks.driver.findElement(By.cssSelector(".modal-content a[href='/login']")).click();
-        // After click we are on login page – update context
+        CartPage cartPage = new CartPage(Hooks.driver);
+        cartPage.clickRegisterLoginInCheckoutModal();
         ScenarioContext.put(ScenarioContext.LOGIN_PAGE, new LoginPage(Hooks.driver));
     }
 

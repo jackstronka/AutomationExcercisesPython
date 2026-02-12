@@ -1,15 +1,23 @@
 package com.example.pages;
 
+import com.example.utilities.ConfigReader;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 /**
  * Page Object for order success page (payment_done).
  * Contains: Download Invoice, Continue (data-qa="continue-button").
  */
 public class OrderSuccessPage extends BasePage {
+
+    private static final By ORDER_SUCCESS_MESSAGE =
+            By.xpath("//*[contains(.,'Your order has been placed successfully!')]");
 
     // <a href="/download_invoice/500" class="btn btn-default check_out">Download Invoice</a>
     private final By downloadInvoiceLink =
@@ -22,13 +30,13 @@ public class OrderSuccessPage extends BasePage {
         super(driver);
     }
 
-    /** Clicks "Download Invoice". */
+    @Step("Click Download Invoice")
     public void clickDownloadInvoice() {
         scrollIntoView(downloadInvoiceLink);
         click(downloadInvoiceLink);
     }
 
-    /** Clicks "Continue" (return to home page). */
+    @Step("Click Continue on order success page")
     public void clickContinue() {
         clickViaJavaScript(continueButton);
     }
@@ -55,5 +63,25 @@ public class OrderSuccessPage extends BasePage {
     /** Checks if Download Invoice link is visible. */
     public boolean isDownloadInvoiceVisible() {
         return isElementPresent(downloadInvoiceLink);
+    }
+
+    /**
+     * Waits for order success (redirect to payment_done or success message on page).
+     * Uses orderSuccessWaitTimeout from config.
+     */
+    public boolean waitForOrderSuccessMessageOrPaymentDone() {
+        int timeout = Integer.parseInt(ConfigReader.get("orderSuccessWaitTimeout", "15"));
+        WebDriverWait w = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        try {
+            w.until(d -> {
+                if (d.getCurrentUrl() != null && d.getCurrentUrl().contains("payment_done")) {
+                    return true;
+                }
+                return !d.findElements(ORDER_SUCCESS_MESSAGE).isEmpty();
+            });
+            return true;
+        } catch (Exception e) {
+            return driver.getCurrentUrl() != null && driver.getCurrentUrl().contains("payment_done");
+        }
     }
 }

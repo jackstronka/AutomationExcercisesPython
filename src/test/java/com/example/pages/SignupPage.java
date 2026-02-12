@@ -1,5 +1,6 @@
 package com.example.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -53,6 +54,7 @@ public class SignupPage extends BasePage {
 
     // ===== Filling account data =====
 
+    @Step("Fill account information")
     public void fillAccountInformation(String password, String title, String day, String month, String year) {
         if ("Mrs".equalsIgnoreCase(title)) {
             click(titleMrs);
@@ -65,18 +67,21 @@ public class SignupPage extends BasePage {
         selectByValue(yearsSelect, year);
     }
 
+    @Step("Subscribe to newsletter")
     public void subscribeToNewsletter() {
         if (!isCheckboxSelected(newsletterCheckbox)) {
             clickViaJavaScript(newsletterCheckbox);
         }
     }
 
+    @Step("Agree to special offers")
     public void agreeToSpecialOffers() {
         if (!isCheckboxSelected(optinCheckbox)) {
             clickViaJavaScript(optinCheckbox);
         }
     }
 
+    @Step("Fill address details")
     public void fillAddressDetails(
             String firstName,
             String lastName,
@@ -97,6 +102,7 @@ public class SignupPage extends BasePage {
         writeText(mobileNumberInput, mobileNumber);
     }
 
+    @Step("Click Create Account")
     public void clickCreateAccount() {
         wait.until(ExpectedConditions.elementToBeClickable(createAccountButton));
         clickViaJavaScript(createAccountButton);

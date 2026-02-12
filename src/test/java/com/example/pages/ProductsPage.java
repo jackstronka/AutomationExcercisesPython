@@ -1,10 +1,11 @@
 package com.example.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 /**
- * Page Object dla strony https://automationexercise.com/products – All Products.
+ * Page Object for https://automationexercise.com/products – All Products.
  */
 public class ProductsPage extends BasePage {
 
@@ -27,11 +28,13 @@ public class ProductsPage extends BasePage {
         return !driver.findElements(productsList).isEmpty();
     }
 
+    @Step("Click first View Product")
     public void clickFirstViewProduct() {
         scrollIntoView(firstViewProductLink);
         clickViaJavaScript(firstViewProductLink);
     }
 
+    @Step("Search product: {0}")
     public void searchProduct(String searchTerm) {
         writeText(searchInput, searchTerm);
         click(searchButton);
