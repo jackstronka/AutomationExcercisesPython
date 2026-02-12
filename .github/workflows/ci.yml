@@ -86,7 +86,7 @@ jobs:
         with:
           name: allure-report-pages
           path: target/allure-report/
-          if-no-files-found: fail
+          if-no-files-found: error
 
   # Requires repo Settings → Environments → github-pages (and Pages → Source: GitHub Actions)
   deploy-pages:
