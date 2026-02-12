@@ -197,16 +197,16 @@ mvn test -Pcucumber "-Dcucumber.filter.tags=@checkout and not @ignore"
 
 Tests run automatically on push and pull requests to `main`:
 
-| Event | Jobs | What runs |
-|-------|------|-----------|
-| **push** to `main` | build → test | Compile + **full regression** |
-| **pull_request** to `main` | build → test | Compile + **smoke tests only** (`@smoke`) |
-| **schedule** (cron) | build → test | Compile + **full regression** – domyślnie poniedziałek 9:00 UTC |
+| Event | What runs |
+|-------|-----------|
+| **push** to `main` | **Full regression** |
+| **pull_request** to `main` | **Smoke tests only** (`@smoke`) |
+| **schedule** (cron) | **Full regression** – Monday 9:00 UTC |
 
-- **build** – compiles project (`mvn compile test-compile`); fails fast if code does not compile
-- **test** – runs Cucumber tests (headless Chrome)
+- **Job:** `test` – checkout, JDK 21, Chrome (`browser-actions/setup-chrome`), Cucumber (headless)
+- **Concurrency:** new run on the same branch/PR cancels the previous one (`cancel-in-progress`)
 - **Timeout:** 30 minutes
-- **Artifacts:** test reports (`surefire-reports`, `cucumber-reports.html`, `cucumber-report.json`) uploaded for download after each run
+- **Artifacts:** `surefire-reports`, `cucumber-reports.html`, `cucumber-report.json` – available for download after each run
 
 Workflow file: `.github/workflows/ci.yml`
 
