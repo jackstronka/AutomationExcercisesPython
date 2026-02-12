@@ -5,9 +5,29 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # Raz w tygodniu – np. poniedziałek o 9:00 UTC
+  schedule:
+    - cron: '0 9 * * 1'
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Compile
+        run: mvn compile test-compile -B
+
   test:
+    needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -30,5 +50,25 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
 
-      - name: Run Cucumber tests
+      - name: Run Cucumber tests (PR – smoke only)
+        if: github.event_name == 'pull_request'
+        run: mvn test -Pcucumber -B -Dheadless=true "-Dcucumber.filter.tags=@smoke"
+
+      - name: Run Cucumber tests (push – full regression)
+        if: github.event_name == 'push'
         run: mvn test -Pcucumber -B -Dheadless=true
+
+      - name: Run Cucumber tests (schedule – weekly full regression)
+        if: github.event_name == 'schedule'
+        run: mvn test -Pcucumber -B -Dheadless=true
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            target/surefire-reports/
+            target/cucumber-reports.html
+            target/cucumber-report.json
+          if-no-files-found: ignore

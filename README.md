@@ -8,6 +8,9 @@ UI test automation project for [automationexercise.com](https://automationexerci
 
 ```text
 AutomationExcercisesCucumber/
+├── .github/
+│   └── workflows/
+│       └── ci.yml
 ├── pom.xml
 ├── README.md
 └── src/
@@ -73,6 +76,7 @@ AutomationExcercisesCucumber/
 - **utilities** – `WebDriverFactory`, `ConfigReader`
 - **resources/config.properties** – environment configuration
 - **resources/features** – Cucumber `.feature` files
+- **.github/workflows** – GitHub Actions CI (runs tests on push/PR)
 
 ---
 
@@ -99,6 +103,7 @@ implicitWait=0
 explicitWait=10
 pageLoadTimeout=30
 orderSuccessWaitTimeout=15
+alertWaitTimeout=2
 ```
 
 Values can be overridden from command line via `-D`:
@@ -148,13 +153,13 @@ mvn test -Pcucumber -Dcucumber.features="src/test/resources/features/TC10_PlaceO
 **2. By tag** – run only scenarios with a given TC tag (e.g. `@tc01`, `@tc10`):
 
 ```bash
-mvn test -Pcucumber -Dcucumber.filter.tags="@tc01"
+mvn test -Pcucumber "-Dcucumber.filter.tags=@tc01"
 ```
 
 To run one tag while still excluding `@ignore` scenarios:
 
 ```bash
-mvn test -Pcucumber -Dcucumber.filter.tags="not @ignore and @tc01"
+mvn test -Pcucumber "-Dcucumber.filter.tags=not @ignore and @tc01"
 ```
 
 **3. From IDE (IntelliJ / VS Code)**  
@@ -185,6 +190,31 @@ mvn test -Pcucumber "-Dcucumber.filter.tags=@checkout and not @ignore"
 
 - `target/cucumber-reports.html`
 - `target/cucumber-report.json`
+
+---
+
+## 🚀 GitHub Actions CI
+
+Tests run automatically on push and pull requests to `main`:
+
+| Event | Jobs | What runs |
+|-------|------|-----------|
+| **push** to `main` | build → test | Compile + **full regression** |
+| **pull_request** to `main` | build → test | Compile + **smoke tests only** (`@smoke`) |
+| **schedule** (cron) | build → test | Compile + **full regression** – domyślnie poniedziałek 9:00 UTC |
+
+- **build** – compiles project (`mvn compile test-compile`); fails fast if code does not compile
+- **test** – runs Cucumber tests (headless Chrome)
+- **Timeout:** 30 minutes
+- **Artifacts:** test reports (`surefire-reports`, `cucumber-reports.html`, `cucumber-report.json`) uploaded for download after each run
+
+Workflow file: `.github/workflows/ci.yml`
+
+Status badge (optional; replace `jackstronka` with your GitHub username):
+
+```markdown
+[![CI](https://github.com/jackstronka/AutomationExcercisesCucumber/actions/workflows/ci.yml/badge.svg)](https://github.com/jackstronka/AutomationExcercisesCucumber/actions)
+```
 
 ---
 

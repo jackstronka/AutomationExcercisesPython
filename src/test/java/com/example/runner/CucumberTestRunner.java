@@ -10,7 +10,11 @@ import io.cucumber.testng.CucumberOptions;
                 "com.example.steps",
                 "com.example.hooks" // includes Hooks for setup/teardown
         },
-        plugin = "pretty",
+        plugin = {
+                "pretty",
+                "html:target/cucumber-reports.html",
+                "json:target/cucumber-report.json"
+        },
         monochrome = true
 )
 public class CucumberTestRunner extends AbstractTestNGCucumberTests {
