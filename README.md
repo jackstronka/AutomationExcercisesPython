@@ -232,9 +232,11 @@ The Allure report is published automatically on each push to `main` and on the w
 
 1. Repo **Settings** → **Pages**
 2. Under **Build and deployment**, set **Source** to **GitHub Actions**
-3. After the next push to `main` or scheduled run, the report will be available at:
+3. Save. After the next successful run (push to `main` or scheduled), the report will be available at:
 
    **https://jackstronka.github.io/AutomationExcercisesCucumber/**
+
+If you see *"There isn't a GitHub Pages site here"* (404): ensure **Source: GitHub Actions** is set and that a workflow run with job **deploy-pages** has completed successfully at least once.
 
 Status badge (optional; replace `jackstronka` with your GitHub username):
 
