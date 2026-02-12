@@ -38,6 +38,15 @@ jobs:
       - name: Verify Chrome installation
         run: google-chrome --version
 
+      - name: Prepare for Allure history (trends)
+        run: mkdir -p target/allure-report
+      - name: Restore Allure history
+        uses: actions/cache/restore@v4
+        id: allure-history-restore
+        with:
+          path: target/allure-report/history
+          key: allure-history-${{ github.ref }}
+
       - name: Run Smoke tests (Pull Request)
         if: github.event_name == 'pull_request'
         run: mvn test -Pcucumber -B -Dheadless=true "-Dcucumber.filter.tags=@smoke"
@@ -51,8 +60,16 @@ jobs:
         run: mvn test -Pcucumber -B -Dheadless=true
 
       - name: Generate Allure report
+        id: generate-allure
         if: always()
         run: mvn allure:report -Pcucumber -B
+
+      - name: Save Allure history (for next run trends)
+        if: always() && steps.generate-allure.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: target/allure-report/history
+          key: allure-history-${{ github.ref }}
 
       - name: Upload test reports
         if: always()
@@ -63,7 +80,6 @@ jobs:
             target/surefire-reports/
             target/cucumber-reports.html
             target/cucumber-report.json
-            target/allure-report/
           if-no-files-found: ignore
 
       - name: Upload Allure report for Pages
@@ -72,8 +88,9 @@ jobs:
         with:
           name: allure-report-pages
           path: target/allure-report/
-          if-no-files-found: ignore
+          if-no-files-found: fail
 
+  # Requires repo Settings → Environments → github-pages (and Pages → Source: GitHub Actions)
   deploy-pages:
     needs: test
     if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule'

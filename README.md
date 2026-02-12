@@ -221,8 +221,9 @@ Tests run automatically on push and pull requests to `main`:
 - **Job:** `test` – checkout, JDK 21, Chrome (`browser-actions/setup-chrome`), Cucumber (headless)
 - **Concurrency:** new run on the same branch/PR cancels the previous one (`cancel-in-progress`)
 - **Timeout:** 30 minutes
-- **Artifacts:** `surefire-reports`, `cucumber-reports.html`, `cucumber-report.json`, `allure-report/` – available for download after each run
-- **GitHub Pages:** The Allure report is deployed to GitHub Pages on **push to main** and on **schedule** (weekly run). See below.
+- **Artifacts:** `test-reports` (surefire, cucumber), `allure-report-pages` (Allure for GitHub Pages)
+- **GitHub Pages:** The Allure report is deployed on **push to main** and on **schedule**. Requires **Settings → Pages → Source: GitHub Actions** and **Environments → github-pages**. See below.
+- **Cache:** Maven dependencies (`setup-java`), Allure report history (for trend charts between runs)
 
 Workflow file: `.github/workflows/ci.yml`
 
@@ -230,9 +231,9 @@ Workflow file: `.github/workflows/ci.yml`
 
 The Allure report is published automatically on each push to `main` and on the weekly schedule. Enable it once:
 
-1. Repo **Settings** → **Pages**
-2. Under **Build and deployment**, set **Source** to **GitHub Actions**
-3. Save. After the next successful run (push to `main` or scheduled), the report will be available at:
+1. Repo **Settings** → **Pages** → **Build and deployment** → **Source**: **GitHub Actions**
+2. Repo **Settings** → **Environments** → ensure **github-pages** exists (the workflow uses `environment: github-pages` and needs `pages: write`)
+3. After the next successful run (push to `main` or scheduled), the report will be available at:
 
    **https://jackstronka.github.io/AutomationExcercisesCucumber/**
 
@@ -257,7 +258,7 @@ Status badge (optional; replace `jackstronka` with your GitHub username):
 - `mvn allure:report -Pcucumber` – generate report to `target/allure-report/` (run after `mvn test`)
 - `mvn allure:serve -Pcucumber` – run tests, generate report, open in browser (all-in-one)
 
-**GitHub Pages:** CI deploys the Allure report on push to `main` and on schedule. Report URL: **https://jackstronka.github.io/AutomationExcercisesCucumber/** (enable **Settings → Pages → Source: GitHub Actions** once).
+**GitHub Pages:** CI deploys the Allure report on push to `main` and on schedule. Report URL: **https://jackstronka.github.io/AutomationExcercisesCucumber/** (enable **Settings → Pages → Source: GitHub Actions** and **Environments → github-pages** once). **Trends:** Allure history is cached between runs so the report shows trend charts.
 
 ---
 
