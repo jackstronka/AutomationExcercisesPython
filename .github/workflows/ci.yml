@@ -19,18 +19,8 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 30
-
-    services:
-      selenium:
-        image: selenium/standalone-chrome:4
-        ports:
-          - 4444:4444
-          - 7900:7900
-
-    env:
-      REMOTE_WEBDRIVER_URL: http://localhost:4444/wd/hub
 
     steps:
       - name: Checkout repository
@@ -45,18 +35,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Wait for Selenium
-        run: |
-          for i in $(seq 1 30); do
-            if curl -s http://localhost:4444/status | grep -q '"ready":true'; then
-              echo "Selenium is ready"
-              exit 0
-            fi
-            echo "Waiting for Selenium... ($i/30)"
-            sleep 2
-          done
-          echo "Selenium did not become ready"
-          exit 1
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Verify Chrome installation
+        run: google-chrome --version
 
       - name: Prepare for Allure history (trends)
         run: mkdir -p allure-report
