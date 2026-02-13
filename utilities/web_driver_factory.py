@@ -34,6 +34,11 @@ def create():
         options.add_experimental_option("prefs", prefs)
         if headless:
             options.add_argument("--headless")
+        # Required for Chrome in CI (e.g. GitHub Actions Linux)
+        if os.environ.get("CI"):
+            options.add_argument("--no-sandbox")
+            options.add_argument("--disable-dev-shm-usage")
+            options.add_argument("--disable-gpu")
         service = ChromeService(ChromeDriverManager().install())
         driver = webdriver.Chrome(service=service, options=options)
     elif browser == "firefox":
