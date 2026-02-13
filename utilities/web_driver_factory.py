@@ -17,9 +17,9 @@ def create():
     maximize = get("maximizeWindow", "false").lower() in ("true", "1", "yes")
     width = int(get("windowWidth", "1200"))
     height = int(get("windowHeight", "800"))
+    remote_url = os.environ.get("REMOTE_WEBDRIVER_URL", "").strip()
 
     if browser == "chrome":
-        from webdriver_manager.chrome import ChromeDriverManager
         options = ChromeOptions()
         root = Path(__file__).resolve().parent.parent
         download_path = (root / "target" / "downloads").resolve()
@@ -34,15 +34,19 @@ def create():
         options.add_experimental_option("prefs", prefs)
         if headless:
             options.add_argument("--headless")
-        # Required for Chrome in CI (e.g. GitHub Actions Linux)
         if os.environ.get("CI"):
             options.add_argument("--no-sandbox")
             options.add_argument("--disable-dev-shm-usage")
             options.add_argument("--disable-gpu")
             options.add_argument("--disable-software-rasterizer")
             options.add_argument("--disable-extensions")
-        service = ChromeService(ChromeDriverManager().install())
-        driver = webdriver.Chrome(service=service, options=options)
+        if remote_url:
+            # CI: use Selenium Docker service (no local Chrome/ChromeDriver needed)
+            driver = webdriver.Remote(command_executor=remote_url, options=options)
+        else:
+            from webdriver_manager.chrome import ChromeDriverManager
+            service = ChromeService(ChromeDriverManager().install())
+            driver = webdriver.Chrome(service=service, options=options)
     elif browser == "firefox":
         from webdriver_manager.firefox import GeckoDriverManager
         options = FirefoxOptions()
