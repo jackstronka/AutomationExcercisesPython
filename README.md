@@ -1,320 +1,223 @@
-## Automation Exercises Cucumber – E2E
+## Automation Exercises – E2E (Python)
 
-UI test automation project for [automationexercise.com](https://automationexercise.com) – **Selenium WebDriver**, **Cucumber** (BDD), **TestNG**.
+UI test automation project for [automationexercise.com](https://automationexercise.com) – **Selenium WebDriver**, **pytest**. Test cases TC01–TC11 with Page Object Model.
 
 ---
 
-## 📁 Project structure
+## Project structure
 
 ```text
-AutomationExcercisesCucumber/
-├── .github/
-│   └── workflows/
-│       └── ci.yml
-├── pom.xml
+AutomationExcercisesPython/
+├── .github/workflows/ci.yml
+├── config.ini
+├── conftest.py
+├── pytest.ini
+├── requirements.txt
+├── run_pytest.bat
 ├── README.md
-└── src/
-    └── test/
-        ├── java/
-        │   └── com/example/
-        │       ├── context/
-        │       │   └── ScenarioContext.java
-        │       ├── hooks/
-        │       │   └── Hooks.java
-        │       ├── pages/
-        │       │   ├── BasePage.java
-        │       │   ├── HomePage.java
-        │       │   ├── LoginPage.java
-        │       │   ├── SignupPage.java
-        │       │   ├── AccountCreatedPage.java
-        │       │   ├── ContactUsPage.java
-        │       │   ├── ProductsPage.java
-        │       │   ├── ProductDetailPage.java
-        │       │   ├── CartPage.java
-        │       │   ├── CheckoutPage.java
-        │       │   └── OrderSuccessPage.java
-        │       ├── steps/
-        │       │   ├── CommonSteps.java
-        │       │   ├── RegistrationSteps.java
-        │       │   ├── LoginSteps.java
-        │       │   ├── AccountSteps.java
-        │       │   ├── ContactUsSteps.java
-        │       │   ├── ProductsSteps.java
-        │       │   ├── ProductQuantitySteps.java
-        │       │   ├── SearchProductSteps.java
-        │       │   └── CheckoutSteps.java
-        │       ├── runner/
-        │       │   └── CucumberTestRunner.java
-        │       └── utilities/
-        │           ├── ConfigReader.java
-        │           └── WebDriverFactory.java
-        └── resources/
-            ├── config.properties
-            ├── testdata/
-            │   └── upload.txt
-            └── features/
-                ├── TC01_RegisterUser.feature
-                ├── TC02_LoginUser.feature
-                ├── TC03_LoginUserIncorrect.feature
-                ├── TC04_LogoutUser.feature
-                ├── TC05_RegisterUserExistingEmail.feature
-                ├── TC06_ContactUsForm.feature
-                ├── TC07_VerifyAllProducts.feature
-                ├── TC08_SearchProduct.feature
-                ├── TC09_VerifyProductQuantityInCart.feature
-                ├── TC10_PlaceOrderRegisterWhileCheckout.feature
-                └── TC11_DownloadInvoiceAfterPurchase.feature
+├── docs/
+│   ├── PYTHON_MIGRATION_PLAN.md
+│   └── SELENIUM_TEST_PATTERN_ANALYSIS.md
+├── pages/
+│   ├── base_page.py
+│   ├── home_page.py
+│   ├── login_page.py
+│   ├── signup_page.py
+│   ├── account_created_page.py
+│   ├── contact_us_page.py
+│   ├── products_page.py
+│   ├── product_detail_page.py
+│   ├── cart_page.py
+│   ├── checkout_page.py
+│   └── order_success_page.py
+├── testdata/
+│   ├── models.py
+│   └── test_data_factory.py
+├── tests/
+│   ├── base_test.py
+│   ├── test_tc01_register_user.py
+│   ├── test_tc02_login_user.py
+│   ├── test_tc03_login_user_incorrect.py
+│   ├── test_tc04_logout_user.py
+│   ├── test_tc05_register_user_existing_email.py
+│   ├── test_tc06_contact_us_form.py
+│   ├── test_tc07_verify_all_products.py
+│   ├── test_tc08_search_product.py
+│   ├── test_tc09_verify_product_quantity_in_cart.py
+│   ├── test_tc10_place_order_register_while_checkout.py
+│   └── test_tc11_download_invoice_after_purchase.py
+├── utilities/
+│   ├── config_reader.py
+│   ├── overlay_helper.py
+│   └── web_driver_factory.py
+└── resources/
+    └── testdata/
+        └── upload.txt
 ```
 
-### Directory description
-
-- **context** – `ScenarioContext` – shared state between step classes within a scenario
-- **pages** – Page Objects (BasePage + application pages)
-- **hooks** – Cucumber hooks (`@Before`, `@After`, `@BeforeStep`) – browser setup, cookie/ad overlays
-- **steps** – Gherkin step definitions (`Given` / `When` / `Then`)
-- **runner** – `CucumberTestRunner` executed via Maven profile `cucumber`
-- **utilities** – `WebDriverFactory`, `ConfigReader`
-- **resources/config.properties** – environment configuration
-- **resources/features** – Cucumber `.feature` files
-- **.github/workflows** – GitHub Actions CI (runs tests on push/PR)
+- **pages** – Page Objects (BasePage + application pages).
+- **testdata** – Dataclasses (AccountInfo, Address, etc.) and `test_data_factory` (defaults, parametrized data).
+- **tests** – pytest test modules and `base_test` (shared flow helpers); overlay dismissal in `conftest`.
+- **utilities** – `config_reader`, `web_driver_factory`, `overlay_helper`.
+- **config.ini** – environment and browser configuration.
 
 ---
 
-## ✅ Requirements
+## Requirements
 
-- Java **17+** (project uses **JDK 21**)
-- Maven **3+**
-- Chrome and/or Firefox
+- **Python 3.10+**
+- **Chrome** and/or **Firefox**
 
 ---
 
-## ⚙️ Configuration – `config.properties`
+## Configuration – `config.ini`
 
-### Key properties
+Main options (sections: `application`, `browser`, `timeouts`):
 
-```properties
-baseUrl=https://automationexercise.com
-browser=chrome
-headless=true
-windowWidth=1200
-windowHeight=800
-maximizeWindow=true
-implicitWait=0
-explicitWait=10
-pageLoadTimeout=30
-orderSuccessWaitTimeout=15
-accountDeletedWaitTimeout=15
-alertWaitTimeout=2
+```ini
+[application]
+baseUrl = https://automationexercise.com
+
+[browser]
+browser = chrome
+headless = true
+windowWidth = 1200
+windowHeight = 800
+maximizeWindow = true
+
+[timeouts]
+implicitWait = 0
+explicitWait = 10
+pageLoadTimeout = 30
+orderSuccessWaitTimeout = 15
+accountDeletedWaitTimeout = 15
+alertWaitTimeout = 2
 ```
 
-Values can be overridden from command line via `-D`:
+Override via **environment variables** (UPPER_SNAKE_CASE): e.g. `BROWSER=firefox`, `HEADLESS=false`, `BASEURL=...`.
+
+---
+
+## Running tests
+
+### Install dependencies
 
 ```bash
-mvn test -Pcucumber -Dbrowser=firefox -Dheadless=true
+pip install -r requirements.txt
 ```
 
-### Priority order (`ConfigReader`)
+On Windows if `python` is not in PATH:
 
-1. System property (e.g. `-Dbrowser=firefox`)
-2. `config.properties`
-
----
-
-## ▶️ Running tests
+```bash
+py -m pip install -r requirements.txt
+```
 
 ### All tests
 
 ```bash
-mvn test -Pcucumber
+pytest tests/ -v --tb=short
 ```
 
-With options:
+Or on Windows:
 
 ```bash
-mvn test -Pcucumber -Dbrowser=chrome -Dheadless=false
+py -m pytest tests/ -v --tb=short
 ```
 
-### Running individual tests
-
-Each test scenario (TC) has its own tag in format `@tcXX` (e.g. `@tc01`, `@tc02`, ..., `@tc11`), allowing easy single-test execution.
-
-**1. By feature file** – run only a selected `.feature` file:
+### Smoke tests only
 
 ```bash
-mvn test -Pcucumber -Dcucumber.features="src/test/resources/features/TC01_RegisterUser.feature"
+pytest tests/ -m smoke -v
 ```
 
-Other file examples:
+### Single TC (e.g. TC02)
 
 ```bash
-mvn test -Pcucumber -Dcucumber.features="src/test/resources/features/TC02_LoginUser.feature"
-mvn test -Pcucumber -Dcucumber.features="src/test/resources/features/TC10_PlaceOrderRegisterWhileCheckout.feature"
+pytest tests/test_tc02_login_user.py -v
 ```
 
-**2. By tag** – run only scenarios with a given TC tag (e.g. `@tc01`, `@tc10`):
+### By marker (e.g. auth)
 
 ```bash
-mvn test -Pcucumber "-Dcucumber.filter.tags=@tc01"
+pytest tests/ -m auth -v
 ```
 
-To run one tag while still excluding `@ignore` scenarios:
+### Allure report (local)
+
+Generate results and open an interactive report in the browser:
 
 ```bash
-mvn test -Pcucumber "-Dcucumber.filter.tags=not @ignore and @tc01"
+pytest tests/ --alluredir=allure-results -v
+allure serve allure-results
 ```
 
-**3. From IDE (IntelliJ / VS Code)**  
-- Right-click the `.feature` file → **Run Feature** (entire file)  
-- Or in a specific scenario → **Run Scenario** (only that scenario)
+- **What you get:** HTML report with test list, steps, and **screenshots on failure** (attached automatically by `conftest.py`).
+- **Allure CLI:** Required for `allure serve`. Install from [Allure documentation](https://docs.qameta.io/allure/) (e.g. Windows: scoop/chocolatey; macOS: `brew install allure`).
 
-### Test suites by tags
-
-- **Smoke tests** – quick, critical suite:
+To generate a static report folder instead of opening a server:
 
 ```bash
-mvn test -Pcucumber "-Dcucumber.filter.tags=@smoke"
+allure generate allure-results --clean -o allure-report
 ```
 
-- **Full regression** – all regression tests (excluding `@ignore`):
-
-```bash
-mvn test -Pcucumber "-Dcucumber.filter.tags=@regression and not @ignore"
-```
-
-- **Functional areas** – e.g. checkout only:
-
-```bash
-mvn test -Pcucumber "-Dcucumber.filter.tags=@checkout and not @ignore"
-```
-
-### Reports
-
-- `target/cucumber-reports.html` – Cucumber HTML report
-- `target/cucumber-report.json` – Cucumber JSON (for integrations)
-- `target/allure-report/` – **Allure** report (interactive, with trends and screenshots on failure)
-
-**Generate Allure report locally:**
-```bash
-mvn test -Pcucumber
-mvn allure:report -Pcucumber
-# Open target/allure-report/index.html in browser
-```
-
-**Or serve interactively:**
-```bash
-mvn allure:serve -Pcucumber
-# Runs tests, generates report, opens in browser
-```
+Then open `allure-report/index.html` in a browser.
 
 ---
 
-## 🚀 GitHub Actions CI
+## GitHub Actions CI
 
-Tests run automatically on push and pull requests to `main`:
+Workflow: `.github/workflows/ci.yml`
 
 | Event | What runs |
 |-------|-----------|
-| **push** to `main` | **Full regression** |
-| **pull_request** to `main` | **Smoke tests only** (`@smoke`) |
-| **schedule** (cron) | **Full regression** – Monday 9:00 UTC |
+| **push** to `main` | Full regression (all tests) |
+| **pull_request** to `main` | Smoke tests only (`-m smoke`) |
+| **schedule** (Monday 9:00 UTC) | Full regression |
 
-- **Job:** `test` – checkout, JDK 21, Chrome (`browser-actions/setup-chrome`), Cucumber (headless)
-- **Concurrency:** new run on the same branch/PR cancels the previous one (`cancel-in-progress`)
-- **Timeout:** 30 minutes
-- **Artifacts:** `test-reports` (surefire, cucumber), `allure-report-pages` (Allure for GitHub Pages)
-- **GitHub Pages:** The Allure report is deployed on **push to main** and on **schedule**. Requires **Settings → Pages → Source: GitHub Actions** and **Environments → github-pages**. See below.
-- **Cache:** Maven dependencies (`setup-java`). Allure **history** for trend charts is downloaded from the current GitHub Pages report (no cache; survives workflow/cache cleanup)
+- **Concurrency:** A new run on the same branch or PR cancels the previous one.
+- **Artifacts:** Each run uploads **allure-results** (raw) and **allure-report-pages** (generated HTML) when available.
 
-Workflow file: `.github/workflows/ci.yml`
+### How to view reports from CI
 
-### Viewing Allure report on GitHub Pages
+1. Open the repository on GitHub → **Actions** tab.
+2. Click the workflow run you want (e.g. latest push or PR).
+3. At the bottom of the run page, in **Artifacts**, download:
+   - **allure-results** – raw data (e.g. for `allure serve` locally).
+   - **allure-report-pages** – ready-made HTML report (unzip and open `index.html` in a browser).
+4. To view the HTML report: download **allure-report-pages**, unzip, then open **index.html** in your browser. You will see the same report as with `allure serve` (tests, steps, screenshots on failure).
 
-The Allure report is published automatically on each push to `main` and on the weekly schedule. Enable it once:
+### Optional: Allure report on GitHub Pages
 
-1. Repo **Settings** → **Pages** → **Build and deployment** → **Source**: **GitHub Actions**
-2. Repo **Settings** → **Environments** → ensure **github-pages** exists (the workflow uses `environment: github-pages` and needs `pages: write`)
-3. After the next successful run (push to `main` or scheduled), the report will be available at:
-
-   **https://jackstronka.github.io/AutomationExcercisesCucumber/**
-
-If you see *"There isn't a GitHub Pages site here"* (404): ensure **Source: GitHub Actions** is set and that a workflow run with job **deploy-pages** has completed successfully at least once.
-
-Status badge (optional; replace `jackstronka` with your GitHub username):
-
-```markdown
-[![CI](https://github.com/jackstronka/AutomationExcercisesCucumber/actions/workflows/ci.yml/badge.svg)](https://github.com/jackstronka/AutomationExcercisesCucumber/actions)
-```
+If you enable **GitHub Pages** (Settings → Pages → Source: **GitHub Actions**) and add the **github-pages** environment, the workflow can deploy the Allure report so it is available at a stable URL (e.g. `https://<user>.github.io/AutomationExcercisesPython/`) after each push to `main` or scheduled run. The workflow is already set up for this; you only need to turn on Pages and the environment.
 
 ---
 
-## 📊 Allure
+## Test cases (TC list)
 
-- **Screenshot on failure** – `Hooks.@After` attaches a screenshot to Allure when a scenario fails (visible in **Tear Down** section of the failed test)
-- **@Step on Page Objects** – public Page Object methods are annotated with `@Step` for detailed step hierarchy in Allure (requires AspectJ agent in Surefire)
-- **Plugin:** `io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm` in `CucumberTestRunner`
-- **Results:** `target/allure-results` (raw)
+| TC    | Markers   | Description |
+|-------|-----------|--------------|
+| **TC01** | `tc01` | Register User |
+| **TC02** | `tc02`, `smoke` | Login User (correct credentials) |
+| **TC03** | `tc03` | Login User (incorrect credentials) |
+| **TC04** | `tc04` | Logout User |
+| **TC05** | `tc05` | Register User with existing email |
+| **TC06** | `tc06` | Contact Us Form |
+| **TC07** | `tc07` | Verify All Products and product detail page |
+| **TC08** | `tc08` | Search Product |
+| **TC09** | `tc09` | Verify Product quantity in Cart |
+| **TC10** | `tc10`, `smoke` | Place Order: Register while Checkout |
+| **TC11** | `tc11` | Download Invoice after purchase order |
 
-**Commands:**
-- `mvn allure:report -Pcucumber` – generate report to `target/allure-report/` (run after `mvn test`)
-- `mvn allure:serve -Pcucumber` – run tests, generate report, open in browser (all-in-one)
-
-**GitHub Pages:** CI deploys the Allure report on push to `main` and on schedule. Report URL: **https://jackstronka.github.io/AutomationExcercisesCucumber/** (enable **Settings → Pages → Source: GitHub Actions** and **Environments → github-pages** once). **Trends:** Before generating the report, the workflow downloads the `history` folder from the current Pages site so trend charts are preserved across runs (no cache dependency).
-
----
-
-## 🧠 Framework architecture
-
-### WebDriverFactory
-
-- Reads `browser`, `headless`, `maximizeWindow`, `windowWidth`, `windowHeight` from config
-- Creates WebDriver (Chrome / Firefox)
-- When `maximizeWindow=true`, skips `setSize` (window is maximized in Hooks)
-
-### ConfigReader
-
-- Loads `config.properties` from classpath
-- Methods: `get(key)`, `get(key, defaultValue)`
-- Validation: `get(key)` throws when key is missing or value is empty
-
-### Hooks
-
-**@Before**
-- Creates WebDriver (shared between scenarios)
-- Maximizes window (if `maximizeWindow=true`)
-- Opens `baseUrl`
-- Dismisses cookie overlay, removes ads, clears `#google_vignette`
-
-**@After**
-- If scenario failed – attaches screenshot to Allure
-- Does not close browser (shared); closing in shutdown hook after all tests complete
-
-**@BeforeStep**
-- Removes ad overlays before each step
-
-### BasePage
-
-Shared methods: `click`, `clickViaJavaScript`, `writeText`, `readText`, `getElement`, `isElementPresent`, `selectByValueViaJavaScript`, `selectByVisibleTextViaJavaScript`.
-
-### Feature files (Test Cases)
-
-| TC    | Tag    | Description |
-|-------|--------|-------------|
-| **TC01** | `@tc01` | Register User |
-| **TC02** | `@tc02` | Login User (correct credentials) |
-| **TC03** | `@tc03` | Login User (incorrect credentials) |
-| **TC04** | `@tc04` | Logout User |
-| **TC05** | `@tc05` | Register User with existing email |
-| **TC06** | `@tc06` | Contact Us Form |
-| **TC07** | `@tc07` | Verify All Products and product detail page |
-| **TC08** | `@tc08` | Search Product |
-| **TC09** | `@tc09` | Verify Product quantity in Cart |
-| **TC10** | `@tc10` | Place Order: Register while Checkout |
-| **TC11** | `@tc11` | Download Invoice after purchase order |
-
-Scenarios with `@ignore` tag are skipped on default run (`tags = "not @ignore"`). Use `@tcXX` tags to run individual TCs, e.g.:
-
-```bash
-mvn test -Pcucumber -Dcucumber.filter.tags="@tc07"
-```
+Markers: `tc01`–`tc11`, `regression`, `smoke`, `auth`, `products`, `checkout`, `contact`.
 
 ---
+
+## Framework overview
+
+- **conftest.py** – session-scoped `driver` fixture, function-scoped `base_url` (navigates and dismisses overlays), screenshot on failure to Allure.
+- **utilities/config_reader.py** – reads `config.ini`; env vars override; option case preserved.
+- **utilities/web_driver_factory.py** – creates Chrome/Firefox via webdriver-manager; options from config.
+- **utilities/overlay_helper.py** – `dismiss(driver)` for cookie consent and ad overlays.
+- **tests/base_test.py** – shared helpers: `ensure_registered_user_ready_for_login`, `ensure_user_exists_with_email`, `ensure_enter_account_information_visible`.
+
+Migration notes: **docs/PYTHON_MIGRATION_PLAN.md**.

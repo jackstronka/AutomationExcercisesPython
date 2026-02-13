@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    # Monday 9:00 UTC
     - cron: '0 9 * * 1'
 
 concurrency:
@@ -14,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  JAVA_VERSION: '21'
+  PYTHON_VERSION: '3.12'
 
 jobs:
   test:
@@ -25,59 +24,62 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          distribution: temurin
-          java-version: ${{ env.JAVA_VERSION }}
-          cache: maven
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v1
 
-      - name: Verify Chrome installation
+      - name: Verify Chrome
         run: google-chrome --version
 
-      - name: Prepare for Allure history (trends)
-        run: mkdir -p target/allure-report
-      - name: Download Allure history from GitHub Pages
+      - name: Prepare Allure report directory
+        run: mkdir -p allure-report
+
+      - name: Download Allure history from GitHub Pages (for trends)
         continue-on-error: true
         run: |
           REPO_NAME="${GITHUB_REPOSITORY#*/}"
           BASE="https://${GITHUB_REPOSITORY_OWNER}.github.io/${REPO_NAME}"
-          wget -q -r -np -nH -e robots=off -P target/allure-report-dl "${BASE}/history/" || true
-          SRC="target/allure-report-dl/${GITHUB_REPOSITORY_OWNER}.github.io/${REPO_NAME}/history"
+          wget -q -r -np -nH -e robots=off -P allure-dl "${BASE}/history/" || true
+          SRC="allure-dl/${GITHUB_REPOSITORY_OWNER}.github.io/${REPO_NAME}/history"
           if [ -d "$SRC" ]; then
-            mv "$SRC" target/allure-report/history
+            mv "$SRC" allure-report/history
           fi
-          rm -rf target/allure-report-dl 2>/dev/null || true
+          rm -rf allure-dl 2>/dev/null || true
 
       - name: Run Smoke tests (Pull Request)
         if: github.event_name == 'pull_request'
-        run: mvn test -Pcucumber -B -Dheadless=true "-Dcucumber.filter.tags=@smoke"
+        run: pytest tests/ -m smoke -v --tb=short --alluredir=allure-results
 
       - name: Run Full Regression (Push to main)
         if: github.event_name == 'push'
-        run: mvn test -Pcucumber -B -Dheadless=true
+        run: pytest tests/ -v --tb=short --alluredir=allure-results
 
       - name: Run Weekly Full Regression (Scheduled)
         if: github.event_name == 'schedule'
-        run: mvn test -Pcucumber -B -Dheadless=true
+        run: pytest tests/ -v --tb=short --alluredir=allure-results
 
       - name: Generate Allure report
-        id: generate-allure
         if: always()
-        run: mvn allure:report -Pcucumber -B
+        run: |
+          ALLURE_VER="2.32.0"
+          wget -q "https://github.com/allure-framework/allure2/releases/download/${ALLURE_VER}/allure-${ALLURE_VER}.tgz" -O allure.tgz
+          tar -xzf allure.tgz
+          ./allure-${ALLURE_VER}/bin/allure generate allure-results --clean -o allure-report
 
-      - name: Upload test reports
+      - name: Upload test results (Allure)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-reports
-          path: |
-            target/surefire-reports/
-            target/cucumber-reports.html
-            target/cucumber-report.json
+          name: allure-results
+          path: allure-results/
           if-no-files-found: ignore
 
       - name: Upload Allure report for Pages
@@ -85,10 +87,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: allure-report-pages
-          path: target/allure-report/
-          if-no-files-found: error
+          path: allure-report/
+          if-no-files-found: ignore
 
-  # Requires repo Settings → Environments → github-pages (and Pages → Source: GitHub Actions)
   deploy-pages:
     needs: test
     if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule'
@@ -103,7 +104,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: allure-report-pages
-      - name: Upload Allure report for GitHub Pages
+      - name: Upload to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
