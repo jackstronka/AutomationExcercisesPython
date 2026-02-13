@@ -17,8 +17,10 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 30
+    env:
+      CI: true
 
     steps:
       - name: Checkout repository
@@ -59,15 +61,15 @@ jobs:
 
       - name: Run Smoke tests (Pull Request)
         if: github.event_name == 'pull_request'
-        run: pytest tests/ -m smoke -v --tb=short --alluredir=allure-results
+        run: pytest tests/ -m smoke -v --tb=long --alluredir=allure-results
 
       - name: Run Full Regression (Push to main)
         if: github.event_name == 'push'
-        run: pytest tests/ -v --tb=short --alluredir=allure-results
+        run: pytest tests/ -v --tb=long --alluredir=allure-results
 
       - name: Run Weekly Full Regression (Scheduled)
         if: github.event_name == 'schedule'
-        run: pytest tests/ -v --tb=short --alluredir=allure-results
+        run: pytest tests/ -v --tb=long --alluredir=allure-results
 
       - name: Generate Allure report
         if: always()
