@@ -48,7 +48,6 @@ def create():
             service = ChromeService(ChromeDriverManager().install())
             driver = webdriver.Chrome(service=service, options=options)
     elif browser == "firefox":
-        from webdriver_manager.firefox import GeckoDriverManager
         options = FirefoxOptions()
         root = Path(__file__).resolve().parent.parent
         ff_download = (root / "target" / "downloads").resolve()
@@ -59,9 +58,16 @@ def create():
             "browser.helperApps.neverAsk.saveToDisk",
             "application/pdf,text/plain,application/octet-stream"
         )
-        if headless:
+        # CI: headless required (no display); avoids "Process unexpectedly closed with status 1"
+        if headless or os.environ.get("CI"):
             options.add_argument("--headless")
-        service = FirefoxService(GeckoDriverManager().install())
+        # Prefer system geckodriver in CI to match apt-installed Firefox
+        gecko_path = "/usr/bin/geckodriver" if os.environ.get("CI") else None
+        if gecko_path and Path(gecko_path).exists():
+            service = FirefoxService(executable_path=gecko_path)
+        else:
+            from webdriver_manager.firefox import GeckoDriverManager
+            service = FirefoxService(GeckoDriverManager().install())
         driver = webdriver.Firefox(service=service, options=options)
     else:
         raise ValueError(f"Unsupported browser: {browser}")
