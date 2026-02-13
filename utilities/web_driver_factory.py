@@ -40,9 +40,17 @@ def create():
             options.add_argument("--disable-gpu")
             options.add_argument("--disable-software-rasterizer")
             options.add_argument("--disable-extensions")
+        # CI with browser-actions/setup-chrome: use same Chrome + ChromeDriver to avoid version mismatch and ReadTimeoutError
+        chrome_path = os.environ.get("CHROME_PATH", "").strip()
+        chromedriver_path = os.environ.get("CHROMEDRIVER_PATH", "").strip()
+        if chrome_path and Path(chrome_path).exists():
+            options.binary_location = chrome_path
         if remote_url:
             # CI: use Selenium Docker service (no local Chrome/ChromeDriver needed)
             driver = webdriver.Remote(command_executor=remote_url, options=options)
+        elif chromedriver_path and Path(chromedriver_path).exists():
+            service = ChromeService(executable_path=chromedriver_path)
+            driver = webdriver.Chrome(service=service, options=options)
         else:
             from webdriver_manager.chrome import ChromeDriverManager
             service = ChromeService(ChromeDriverManager().install())

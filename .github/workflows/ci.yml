@@ -19,11 +19,10 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     timeout-minutes: 30
 
     env:
-      BROWSER: firefox
       HEADLESS: "true"
 
     steps:
@@ -39,19 +38,14 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Install Firefox
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y firefox
-          firefox --version
+      - name: Set up Chrome
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          install-chromedriver: true
 
-      - name: Install GeckoDriver
-        run: |
-          GECKO_VER="v0.34.0"
-          wget -q "https://github.com/mozilla/geckodriver/releases/download/${GECKO_VER}/geckodriver-${GECKO_VER}-linux64.tar.gz" -O /tmp/geckodriver.tar.gz
-          sudo tar -xzf /tmp/geckodriver.tar.gz -C /tmp
-          sudo mv /tmp/geckodriver /usr/bin/geckodriver
-          geckodriver --version
+      - name: Verify Chrome installation
+        run: ${{ steps.setup-chrome.outputs.chrome-path }} --version
 
       - name: Prepare for Allure history (trends)
         run: mkdir -p allure-report
@@ -70,6 +64,9 @@ jobs:
 
       - name: Run Smoke tests (Pull Request)
         if: github.event_name == 'pull_request'
+        env:
+          CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
+          CHROMEDRIVER_PATH: ${{ steps.setup-chrome.outputs.chromedriver-path }}
         shell: bash
         run: |
           set -o pipefail
@@ -77,6 +74,9 @@ jobs:
 
       - name: Run Full Regression (Push to main)
         if: github.event_name == 'push'
+        env:
+          CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
+          CHROMEDRIVER_PATH: ${{ steps.setup-chrome.outputs.chromedriver-path }}
         shell: bash
         run: |
           set -o pipefail
@@ -84,6 +84,9 @@ jobs:
 
       - name: Run Weekly Full Regression (Scheduled)
         if: github.event_name == 'schedule'
+        env:
+          CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
+          CHROMEDRIVER_PATH: ${{ steps.setup-chrome.outputs.chromedriver-path }}
         shell: bash
         run: |
           set -o pipefail

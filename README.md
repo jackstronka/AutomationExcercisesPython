@@ -174,7 +174,7 @@ Workflow: `.github/workflows/ci.yml`
 | **pull_request** to `main` | Smoke tests only (`-m smoke`) |
 | **schedule** (Monday 9:00 UTC) | Full regression |
 
-- **Browser:** CI runs tests with **Firefox** in **headless** mode (Ubuntu runner installs `firefox` and `geckodriver` via apt; avoids Chrome/Gecko session issues on the runner).
+- **Browser:** CI runs tests with **Chrome** in **headless** mode via [browser-actions/setup-chrome](https://github.com/browser-actions/setup-chrome) (same approach as in the Java/Maven project).
 - **Concurrency:** A new run on the same branch or PR cancels the previous one.
 - **Artifacts:** Each run uploads **allure-results** (raw) and **allure-report-pages** (generated HTML) when available.
 
