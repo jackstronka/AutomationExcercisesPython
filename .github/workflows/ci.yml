@@ -58,15 +58,30 @@ jobs:
 
       - name: Run Smoke tests (Pull Request)
         if: github.event_name == 'pull_request'
-        run: pytest tests/ -m smoke -v --tb=long --alluredir=allure-results
+        shell: bash
+        run: |
+          set -o pipefail
+          pytest tests/ -m smoke -v --tb=long --alluredir=allure-results 2>&1 | tee pytest-output.txt
 
       - name: Run Full Regression (Push to main)
         if: github.event_name == 'push'
-        run: pytest tests/ -v --tb=long --alluredir=allure-results
+        shell: bash
+        run: |
+          set -o pipefail
+          pytest tests/ -v --tb=long --alluredir=allure-results 2>&1 | tee pytest-output.txt
 
       - name: Run Weekly Full Regression (Scheduled)
         if: github.event_name == 'schedule'
-        run: pytest tests/ -v --tb=long --alluredir=allure-results
+        shell: bash
+        run: |
+          set -o pipefail
+          pytest tests/ -v --tb=long --alluredir=allure-results 2>&1 | tee pytest-output.txt
+
+      - name: Show failure summary (last 120 lines)
+        if: failure()
+        run: |
+          echo "========== LAST 120 LINES (traceback / error) =========="
+          tail -120 pytest-output.txt 2>/dev/null || echo "No pytest-output.txt"
 
       - name: Generate Allure report
         id: generate-allure
@@ -90,6 +105,7 @@ jobs:
           name: test-reports
           path: |
             allure-results/
+            pytest-output.txt
           if-no-files-found: ignore
 
       - name: Upload Allure report for Pages
