@@ -9,6 +9,7 @@ from testdata.test_data_factory import (
     default_address,
     generate_unique_email,
 )
+from utilities.overlay_helper import dismiss
 
 
 def ensure_registered_user_ready_for_login(driver) -> tuple[str, str]:
@@ -85,6 +86,7 @@ def ensure_enter_account_information_visible(
             return signup_page
         if login_page and login_page.is_email_already_exists_error_visible():
             unique_email = generate_unique_email(base_email)
+            dismiss(driver)  # CI/scheduled: overlays can cover signup form after error
             login_page.enter_new_user_name_and_email(name, unique_email)
             login_page.click_signup_button()
             signup_page = SignupPage(driver)
